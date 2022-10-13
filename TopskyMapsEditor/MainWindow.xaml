@@ -33,6 +33,7 @@
 
             <TextBlock
                 Grid.Column="0"
+                Padding="5,0,0,0"
                 VerticalAlignment="Center"
                 FontWeight="Bold"
                 Foreground="White"
@@ -57,15 +58,15 @@
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="4*" />
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="5*" />
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="1*" />
-                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="8*" />
                 </Grid.RowDefinitions>
 
                 <Button
@@ -111,7 +112,7 @@
                             x:Name="BrowseSctButton"
                             Background="#101010"
                             Click="BrowseSctButton_Click"
-                            Content="Browse SCT"
+                            Content="Edit SCT"
                             FontWeight="Bold"
                             Foreground="White" />
                     </StackPanel>
@@ -120,9 +121,72 @@
                 <Grid
                     x:Name="EditMaps"
                     Grid.Row="1"
-                    Visibility="Hidden">
+                    Visibility="Visible">
 
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="10*" />
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                            <Button
+                                x:Name="FolderViewButton"
+                                Background="#232323"
+                                Click="FolderViewButton_Click"
+                                Content="Folder View"
+                                Foreground="White" />
+                            <Button
+                                x:Name="ListViewButton"
+                                Background="#101010"
+                                Click="ListViewButton_Click"
+                                Content="List View"
+                                Foreground="White" />
+                        </StackPanel>
+                    </Grid>
+
+                    <!--  TODO  -->
+                    <Grid Grid.Column="1">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="10*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0">
+                            <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                                <Button
+                                    x:Name="DetailedViewButton"
+                                    Background="#232323"
+                                    Click="DetailedViewButton_Click"
+                                    Content="Detailed View"
+                                    Foreground="White" />
+                                <Button
+                                    x:Name="RawViewButton"
+                                    Background="#101010"
+                                    Click="RawViewButton_Click"
+                                    Content="Raw View"
+                                    Foreground="White" />
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </Grid>
+
+                    <!--<Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
@@ -157,22 +221,15 @@
                         <Grid.RowDefinitions>
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                    </Grid>
+                    </Grid>-->
                 </Grid>
 
                 <Grid
                     x:Name="BrowseSct"
                     Grid.Row="1"
-                    Visibility="Visible">
+                    Visibility="Hidden" />
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                    </Grid.ColumnDefinitions>
-                </Grid>
+
             </Grid>
         </Grid>
 

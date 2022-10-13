@@ -45,25 +45,6 @@ namespace TopskyMapsEditor
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
 
-            //string InitialDirectory = null;
-            //if (
-            //    Directory.Exists(
-            //        Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"/EuroScope"
-            //    )
-            //)
-            //{
-            //    InitialDirectory = Environment.GetFolderPath(
-            //    Environment.SpecialFolder.MyDocuments
-            //) + @"/EuroScope";
-            //}
-            //else
-            //{
-            //    InitialDirectory = Environment.GetFolderPath(
-            //    Environment.SpecialFolder.MyDocuments
-            //);
-            //}
-
-            //fileDialog.InitialDirectory = InitialDirectory;
             fileDialog.InitialDirectory = Environment.GetFolderPath(
                 Environment.SpecialFolder.MyDocuments
             );
@@ -88,9 +69,11 @@ namespace TopskyMapsEditor
                     }
                 }
 
-                //DO stuff
+                StreamReader streamReader = new StreamReader(Path);
+                string RawText = streamReader.ReadToEnd();
 
-                MapPlaceholder.Visibility = Visibility.Hidden;
+                TopskyMapClass.TopskyMapNames(RawText);
+                //MapPlaceholder.Visibility = Visibility.Hidden;
             }
         }
 
@@ -121,10 +104,38 @@ namespace TopskyMapsEditor
 
         private void EditMapsButton_Click(object sender, RoutedEventArgs e)
         {
+            BrowseSct.Visibility = Visibility.Hidden;
+            EditMaps.Visibility = Visibility.Visible;
 
+            EditMapsButton.Background = new SolidColorBrush(Color.FromRgb(23, 23, 23));
+            BrowseSctButton.Background = new SolidColorBrush(Color.FromRgb(10, 10, 10));
         }
 
         private void BrowseSctButton_Click(object sender, RoutedEventArgs e)
+        {
+            BrowseSct.Visibility = Visibility.Visible;
+            EditMaps.Visibility = Visibility.Hidden;
+
+            EditMapsButton.Background = new SolidColorBrush(Color.FromRgb(10, 10, 10));
+            BrowseSctButton.Background = new SolidColorBrush(Color.FromRgb(23, 23, 23));
+        }
+
+        private void FolderViewButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ListViewButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RawViewButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DetailedViewButton_Click(object sender, RoutedEventArgs e)
         {
 
         }

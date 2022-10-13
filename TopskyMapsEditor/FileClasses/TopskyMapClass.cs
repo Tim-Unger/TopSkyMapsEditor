@@ -15,6 +15,13 @@ namespace TopskyMapsEditor
         public Active? Active { get; set; }
     }
 
+    public class Folder
+    {
+        public string FolderName { get; set; }
+        public List<string> FolderContent { get; set; }
+    }
+
+    //Symbols etc
     public class Active
     {
         public bool IsAlwaysActive { get; set; }
@@ -36,6 +43,26 @@ namespace TopskyMapsEditor
         public List<string>? NotActiveAreasList { get; set; }
 
         //Active by Runways
+        //TODO
+        public bool? IsActiveByRunway { get; set; }
+        public List<ActiveRunway>? ActiveRunways { get; set; }
 
+        //Active by ID
+        public bool IsActiveById { get; set; }
+
+    }
+
+    public class ActiveRunway
+    {
+        List<TopskyRunway>? ArrivalRunways { get; set; }
+        List<TopskyRunway>? NotArrivalRunways { get; set; }
+        List<TopskyRunway>? DepartureRunways { get; set; }
+        List<TopskyRunway>? NotDepartureRunways { get; set; }
+    }
+
+    public class TopskyRunway
+    {
+        public string Icao { get; set; }
+        public string Identifier { get; set; }
     }
 }
