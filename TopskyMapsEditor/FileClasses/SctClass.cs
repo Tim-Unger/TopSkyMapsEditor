@@ -12,8 +12,6 @@ namespace TopskyMapsEditor
         public List<Ndb>? ndbs { get; set; }
         public List<Fix> fixes { get; set; }
         public List<Airport> airports { get; set; }
-
-        //TODO Runways?
     }
 
     public class Vor
@@ -41,5 +39,22 @@ namespace TopskyMapsEditor
         //?? idk
         public string Frequency { get; set; }
         public string Coordinates { get; set; }
+
+        public List<Runway> runways { get; set; }
+    }
+
+    public class Runway
+    {
+        public string FirstRunwayIndentifier { get; set; }
+        public string SecondRunwayIdentifier { get; set; }
+        public int FirstRunwayDirection { get; set; }
+        public int SecondRunwayDirection { get;set; }
+
+        public string FirstRunwayStartCoordinate { get; set; }
+        public string FirstRunwayEndCoordinate { get; set; }
+        public string SecondRunwayStartCoordinate { get; set; }
+        public string SecondRunwayEndCoordinate { get; set; }
+        public string Airport { get; set; }
+
     }
 }

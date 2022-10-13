@@ -35,7 +35,8 @@ namespace Parser
             int airportStartIndex =
                 Array.FindIndex(lines, content => content.StartsWith("[AIRPORT]")) + 1;
 
-            int runwayStartIndex = Array.FindIndex(lines, content => content.StartsWith("[RUNWAY]")) + 1;
+            int runwayStartIndex =
+                Array.FindIndex(lines, content => content.StartsWith("[RUNWAY]")) + 1;
 
             var vorArray = lines[vorStartIndex..];
             var ndbArray = lines[ndbStartIndex..];
@@ -108,10 +109,12 @@ namespace Parser
                 {
                     var fix = new Fix();
 
-                    Regex FixRegex = new Regex("(\\S{1,})\\s{1,}((N|S)([0-9]{3}.[0-9]{2}.[0-9]{2}.[0-9]{3}\\s{1,})(E|W)([0-9]{3}).[0-9]{2}.[0-9]{2}.[0-9]{3})");
+                    Regex FixRegex = new Regex(
+                        "(\\S{1,})\\s{1,}((N|S)([0-9]{3}.[0-9]{2}.[0-9]{2}.[0-9]{3}\\s{1,})(E|W)([0-9]{3}).[0-9]{2}.[0-9]{2}.[0-9]{3})"
+                    );
 
                     MatchCollection fixMatches = FixRegex.Matches(fixLine);
-                    if(fixMatches.Count == 1)
+                    if (fixMatches.Count == 1)
                     {
                         GroupCollection groups = fixMatches[0].Groups;
 
@@ -127,6 +130,42 @@ namespace Parser
                 }
             }
 
+            var Runways = new List<Runway>();
+            //Find all Runways
+            foreach (var runwayLine in runwayArray)
+            {
+                if (!runwayLine.StartsWith("["))
+                {
+                    var runway = new Runway();
+
+                    Regex RunwayRegex = new Regex(
+                        "(([0-9]{1,2})(L|R|C)?)\\s{1,}(([0-9]{1,2})(L|R|C)?)\\s{1,}([0-9]{3})\\s{1,}([0-9]{3})\\s{1,}((N|E)[0-9]{3}.[0-9]{2}.[0-9]{2}.[0-9]{3})\\s{1,}((E|W)[0-9]{3}.[0-9]{2}.[0-9]{2}.[0-9]{3})\\s{1,}((N|E)[0-9]{3}.[0-9]{2}.[0-9]{2}.[0-9]{3})\\s{1,}((E|W)[0-9]{3}.[0-9]{2}.[0-9]{2}.[0-9]{3})\\s{1,}([A-Z]{4})"
+                    );
+
+                    MatchCollection runwayMatches = RunwayRegex.Matches(runwayLine);
+                    if (runwayMatches.Count == 1)
+                    {
+                        GroupCollection groups = runwayMatches[0].Groups;
+
+                        runway.FirstRunwayIndentifier = groups[1].Value;
+                        runway.SecondRunwayIdentifier = groups[4].Value;
+                        runway.FirstRunwayDirection = int.Parse(groups[7].Value);
+                        runway.SecondRunwayDirection = int.Parse(groups[8].Value);
+                        runway.FirstRunwayStartCoordinate = groups[9].Value;
+                        runway.FirstRunwayEndCoordinate = groups[11].Value;
+                        runway.SecondRunwayStartCoordinate = groups[13].Value;
+                        runway.SecondRunwayEndCoordinate = groups[15].Value;
+                        runway.Airport = groups[17].Value;
+                    }
+
+                    Runways.Add(runway);
+                }
+                else
+                {
+                    break;
+                }
+            }
+
             //Find all Airports
             foreach (var airportLine in airportArray)
             {
@@ -134,10 +173,14 @@ namespace Parser
                 {
                     var airport = new Airport();
 
-                    Regex AirportRegex = new Regex(@"([A-Z]{4})\s{1,}(\S{1,})\s{1,}((N|S)([0-9]{3}.[0-9]{2}.[0-9]{2}.[0-9]{3}\s{1,})(E|W)([0-9]{3}).[0-9]{2}.[0-9]{2}.[0-9]{3})");
+                    var RunwayList = new List<Runway>();
+
+                    Regex AirportRegex = new Regex(
+                        @"([A-Z]{4})\s{1,}(\S{1,})\s{1,}((N|S)([0-9]{3}.[0-9]{2}.[0-9]{2}.[0-9]{3}\s{1,})(E|W)([0-9]{3}).[0-9]{2}.[0-9]{2}.[0-9]{3})"
+                    );
 
                     MatchCollection airportMatches = AirportRegex.Matches(airportLine);
-                    if(airportMatches.Count == 1)
+                    if (airportMatches.Count == 1)
                     {
                         GroupCollection groups = airportMatches[0].Groups;
 
@@ -145,6 +188,15 @@ namespace Parser
                         airport.Frequency = groups[2].Value;
                         airport.Coordinates = groups[3].Value;
                     }
+
+                    foreach (var Runway in Runways)
+                    {
+                        if (Runway.Airport == airport.Name)
+                        {
+                            RunwayList.Add(Runway);
+                        }
+                    }
+                    airport.runways = RunwayList;
 
                     AirportList.Add(airport);
                 }
