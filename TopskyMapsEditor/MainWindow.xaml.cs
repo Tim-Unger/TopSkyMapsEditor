@@ -118,5 +118,15 @@ namespace TopskyMapsEditor
         {
 
         }
+
+        private void EditMapsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BrowseSctButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
