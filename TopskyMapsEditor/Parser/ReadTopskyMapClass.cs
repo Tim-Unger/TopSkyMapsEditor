@@ -10,7 +10,7 @@ namespace Parser
 {
     internal class TopskyMapClass
     {
-        public static List<Folder> TopskyMapNames(string Raw)
+        public static List<Folder> GetTopskyFolders(string Raw)
         {
             List<Folder> mapFolders = new List<Folder>();
             List<string> folderNames = new List<string>();
@@ -81,11 +81,45 @@ namespace Parser
             //    }
             //}
 
-            ReadTopskyMap("23");
-
             return mapFolders;
         }
 
+
+        public static List<string> GetTopskyMapNames(string raw)
+        {
+            List<string> topskyMaps = new List<string>();
+
+            Regex mapRegex = new Regex(@"^MAP:([\s\S]*?)(?=MAP:)", RegexOptions.Multiline);
+
+            MatchCollection mapMatches = mapRegex.Matches(raw);
+
+            //Get all the folders
+            foreach (Match match in mapMatches)
+            {
+                string name = null;
+                GroupCollection groups = match.Groups;
+                
+                string mapNameRegex = groups[0].Value;
+
+                Regex nameRegex = new Regex("MAP:(.{1,})");
+
+                MatchCollection nameMatches = nameRegex.Matches(mapNameRegex);
+
+                if(nameMatches.Count == 1)
+                {
+                    GroupCollection nameGroups = nameMatches[0].Groups;
+
+                    name = nameGroups[1].Value;
+                }
+
+                if (name != null)
+                {
+                    topskyMaps.Add(name);
+                }
+            }
+
+            return topskyMaps;
+        }
         internal static TopskyMap ReadTopskyMap(string Raw)
         {
             TopskyMap topskyMap = new TopskyMap();

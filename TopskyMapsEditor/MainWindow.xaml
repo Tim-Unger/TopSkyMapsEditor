@@ -10,14 +10,16 @@
     Height="450"
     AllowsTransparency="True"
     Background="#060606"
+    ContentRendered="Window_ContentRendered"
     WindowStyle="None"
     mc:Ignorable="d">
     <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
             <RowDefinition Height="10*" />
-            <RowDefinition Height="2*" />
+            <!--<RowDefinition Height="2*" />-->
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -55,185 +57,281 @@
                 Foreground="White" />
         </Grid>
 
+
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="8*" />
-                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="White"
+                    Text="TopskyMaps.txt" />
 
                 <Button
                     x:Name="SelectMapButton"
-                    Grid.Row="1"
-                    Padding="5,5,5,5"
-                    HorizontalAlignment="Center"
+                    Grid.Column="1"
+                    Padding="20,5,20,5"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Background="#232323"
                     Click="SelectMapButton_Click"
-                    Content="Select TopSkyMaps.txt"
+                    Content="Set"
                     Foreground="White" />
-                <Button
-                    x:Name="SelectSctButton"
-                    Grid.Row="2"
-                    Padding="5,5,5,5"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Background="#232323"
-                    Click="SelectSctButton_Click"
-                    Content="Select SCT"
-                    Foreground="White"
-                    IsEnabled="False" />
             </Grid>
 
             <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="10*" />
-                </Grid.RowDefinitions>
+                <TextBlock
+                    Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="White"
+                    Text="Sector file SCT" />
 
-                <Grid Grid.Row="0">
-                    <StackPanel Orientation="Horizontal">
-                        <Button
-                            x:Name="EditMapsButton"
-                            Background="#232323"
-                            Click="EditMapsButton_Click"
-                            Content="Edit Topsky Maps"
-                            FontWeight="Bold"
-                            Foreground="White" />
-                        <Button
-                            x:Name="BrowseSctButton"
-                            Background="#101010"
-                            Click="BrowseSctButton_Click"
-                            Content="Edit SCT"
-                            FontWeight="Bold"
-                            Foreground="White" />
-                    </StackPanel>
-                </Grid>
+                <Button
+                    x:Name="SelectSctButton"
+                    Grid.Column="1"
+                    Padding="20,5,20,5"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Background="#232323"
+                    Click="SelectSctButton_Click"
+                    Content="Set"
+                    Foreground="White" />
+            </Grid>
 
-                <Grid
-                    x:Name="EditMaps"
-                    Grid.Row="1"
-                    Visibility="Visible">
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="White"
+                    Text="Sector file ESE (optional)" />
+
+                <Button
+                    x:Name="SelectEse"
+                    Grid.Column="2"
+                    Padding="20,5,20,5"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Background="#232323"
+                    Click="SelectEse_Click"
+                    Content="Set"
+                    Foreground="White" />
+            </Grid>
+
+        </Grid>
+
+        <Grid
+            x:Name="PlaceholderMainGrid"
+            Grid.Row="2"
+            Visibility="Hidden">
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontWeight="Bold"
+                Foreground="White"
+                TextAlignment="Center">
+                No TopSkyMaps and SCT selected.<LineBreak />
+                Select both to continue</TextBlock>
+        </Grid>
+
+        <Grid
+            x:Name="MainGrid"
+            Grid.Row="2"
+            Visibility="Visible">
+
+            <Grid Grid.Row="2">
+
+                <Grid Grid.Column="1">
 
                     <Grid.RowDefinitions>
-                        <RowDefinition />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="10*" />
                     </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="2*" />
-                    </Grid.ColumnDefinitions>
 
-                    <Grid Grid.Column="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="1*" />
-                            <RowDefinition Height="10*" />
-                        </Grid.RowDefinitions>
-
-                        <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                    <Grid Grid.Row="0">
+                        <StackPanel Orientation="Horizontal">
                             <Button
-                                x:Name="FolderViewButton"
+                                x:Name="EditMapsButton"
                                 Background="#232323"
-                                Click="FolderViewButton_Click"
-                                Content="Folder View"
+                                Click="EditMapsButton_Click"
+                                Content="Edit Topsky Maps"
+                                FontWeight="Bold"
                                 Foreground="White" />
                             <Button
-                                x:Name="ListViewButton"
+                                x:Name="BrowseSctButton"
                                 Background="#101010"
-                                Click="ListViewButton_Click"
-                                Content="List View"
+                                Click="BrowseSctButton_Click"
+                                Content="Edit SCT"
+                                FontWeight="Bold"
                                 Foreground="White" />
                         </StackPanel>
                     </Grid>
 
-                    <!--  TODO  -->
-                    <Grid Grid.Column="1">
+                    <Grid
+                        x:Name="EditMaps"
+                        Grid.Row="1"
+                        Visibility="Visible">
 
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="1*" />
-                            <RowDefinition Height="10*" />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
 
-                        <Grid Grid.Row="0">
-                            <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
-                                <Button
-                                    x:Name="DetailedViewButton"
-                                    Background="#232323"
-                                    Click="DetailedViewButton_Click"
-                                    Content="Detailed View"
-                                    Foreground="White" />
-                                <Button
-                                    x:Name="RawViewButton"
-                                    Background="#101010"
-                                    Click="RawViewButton_Click"
-                                    Content="Raw View"
-                                    Foreground="White" />
-                            </StackPanel>
+                        <Grid x:Name="ListView">
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="10*" />
+                                </Grid.RowDefinitions>
+
+                                <StackPanel
+                                    Grid.Row="0"
+                                    Margin="0,5,0,0"
+                                    Orientation="Horizontal">
+                                    <Button
+                                        x:Name="FolderViewButton"
+                                        Background="#232323"
+                                        Click="FolderViewButton_Click"
+                                        Content="Folder View"
+                                        Foreground="White" />
+                                    <Button
+                                        x:Name="ListViewButton"
+                                        Background="#101010"
+                                        Click="ListViewButton_Click"
+                                        Content="List View"
+                                        Foreground="White" />
+                                </StackPanel>
+
+                                <Grid Grid.Row="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="8*" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBox
+                                        x:Name="ListViewSearch"
+                                        Grid.Row="0"
+                                        Padding="0,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Background="#232323"
+                                        Foreground="White"
+                                        GotFocus="ListViewSearch_GotFocus"
+                                        LostFocus="ListViewSearch_LostFocus"
+                                        Text="Search" />
+
+                                    <Button
+                                        x:Name="AddTopskyMapButton"
+                                        Grid.Row="1"
+                                        Padding="5,5,5,5"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Background="#232323"
+                                        Click="AddTopskyMapButton_Click"
+                                        Content="Add Map"
+                                        Foreground="White" />
+
+                                    <ScrollViewer
+                                        x:Name="ListViewScrollViewer"
+                                        Grid.Row="2"
+                                        VerticalScrollBarVisibility="Auto">
+                                        <StackPanel x:Name="ListStackPanel" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Grid>
+
                         </Grid>
 
-                        <Grid Grid.Row="1">
+                        <!--  TODO  -->
+                        <Grid Grid.Column="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*" />
                                 <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="10*" />
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Grid.Column="0">
+                                <Grid Grid.Row="0">
+                                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                                        <Button
+                                            x:Name="DetailedViewButton"
+                                            Background="#232323"
+                                            Click="DetailedViewButton_Click"
+                                            Content="Detailed View"
+                                            Foreground="White" />
+                                        <Button
+                                            x:Name="RawViewButton"
+                                            Background="#101010"
+                                            Click="RawViewButton_Click"
+                                            Content="Raw View"
+                                            Foreground="White" />
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+
+                            <Grid Grid.Row="0" Grid.Column="1">
+                                <Grid Grid.Row="0">
+                                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                                        <Button
+                                            x:Name="EditButton"
+                                            Background="#232323"
+                                            Click="EditButton_Click"
+                                            Content="Edit"
+                                            Foreground="White" />
+                                        <Button
+                                            x:Name="PreviewButton"
+                                            Background="#101010"
+                                            Click="PreviewButton_Click"
+                                            Content="Preview"
+                                            Foreground="White" />
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
                         </Grid>
+
                     </Grid>
 
-                    <!--<Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                    </Grid.ColumnDefinitions>
+                    <Grid
+                        x:Name="BrowseSct"
+                        Grid.Row="1"
+                        Visibility="Hidden" />
 
-                    <Grid x:Name="MapColumn" Grid.Column="0">
-                        <TextBlock
-                            x:Name="MapPlaceholder"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            FontWeight="Bold"
-                            Foreground="White"
-                            Text="Select a Map-File to get started"
-                            Visibility="Visible" />
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                    </Grid>
 
-                    <Grid x:Name="DetailsColumn" Grid.Column="1">
-                        <TextBlock
-                            x:Name="DetailsPlaceholder"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            FontWeight="Bold"
-                            Foreground="White"
-                            Text="Select a Map to edit Details"
-                            Visibility="Visible" />
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                    </Grid>-->
                 </Grid>
-
-                <Grid
-                    x:Name="BrowseSct"
-                    Grid.Row="1"
-                    Visibility="Hidden" />
-
-
             </Grid>
         </Grid>
 
-        <Grid Grid.Row="2">
+
+        <!--<Grid Grid.Row="3">
             <Button
                 x:Name="Save"
                 Padding="50,5,50,5"
@@ -243,7 +341,8 @@
                 Click="Save_Click"
                 Content="Save"
                 FontWeight="Bold"
-                Foreground="White" />
-        </Grid>
+                Foreground="White"
+                IsEnabled="False" />
+        </Grid>-->
     </Grid>
 </Window>
