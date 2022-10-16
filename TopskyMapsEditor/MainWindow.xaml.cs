@@ -31,7 +31,8 @@ namespace TopskyMapsEditor
         public static bool IsTopskyFolderSelected { get; set; }
         public static bool IsSctFolderSelected { get; set; }
 
-        public static List<string> TopskyMaps { get; set; }
+        public static List<string> TopskyMapTitles { get; set; }
+        public static List<TopskyMap> TopskyMaps { get; set; }
     }
 
     public partial class MainWindow : Window
@@ -83,7 +84,9 @@ namespace TopskyMapsEditor
                 string RawText = streamReader.ReadToEnd();
                 streamReader.Close();
 
-                TopskyMaps = TopskyMapClass.GetTopskyMapNames(RawText);
+                //TODO
+                TopskyMapTitles = TopskyMapClass.GetTopskyMapNames(RawText);
+                TopskyMaps = TopskyMapClass.GetTopskyMaps(RawText);
 
                 IsTopskyFolderSelected = true;
                 SelectMapButton.Content = Path;
@@ -92,7 +95,7 @@ namespace TopskyMapsEditor
                     PlaceholderMainGrid.Visibility = Visibility.Hidden;
                     MainGrid.Visibility = Visibility.Visible;
 
-                    RenderScrollviewer.RenderListView(TopskyMaps);
+                    RenderScrollviewer.RenderListView(TopskyMapTitles);
                 }
                 //MapPlaceholder.Visibility = Visibility.Hidden;
             }
@@ -135,7 +138,8 @@ namespace TopskyMapsEditor
                     PlaceholderMainGrid.Visibility = Visibility.Hidden;
                     MainGrid.Visibility = Visibility.Visible;
 
-                    RenderScrollviewer.RenderListView(TopskyMaps);
+                    //TODO
+                    RenderScrollviewer.RenderListView(TopskyMapTitles);
                 }
             }
         }
