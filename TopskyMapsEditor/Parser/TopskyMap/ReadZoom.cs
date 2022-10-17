@@ -9,9 +9,9 @@ namespace Parser
 {
     public class ReadZoom
     {
-        public static int GetZoom(string content)
+        public static int? GetZoom(string content)
         {
-            int zoom = null;
+            int? zoom = null;
 
             Regex zoomRegex = new Regex("^ZOOM:([0-9]{1,})", RegexOptions.Multiline);
             MatchCollection zoomMatches = zoomRegex.Matches(content);

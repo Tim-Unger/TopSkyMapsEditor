@@ -12,7 +12,7 @@ namespace TopskyMapsEditor.Renderer
 {
     internal class RenderScrollviewer : MainWindow
     {
-        public static void RenderListView(List<string> listIn)
+        public static void RenderListView(List<TopskyMap> listIn)
         {
             ScrollViewer scrollViewer = Main.ListViewScrollViewer;
             StackPanel stackPanel = Main.ListStackPanel;
@@ -24,7 +24,7 @@ namespace TopskyMapsEditor.Renderer
                 Button button = new(); 
 
                 button.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                button.Content = map.TrimEnd('\r','\n');
+                button.Content = map.Name.TrimEnd('\r','\n');
                 button.Padding = new Thickness(0);
                 button.Background = new SolidColorBrush(Color.FromRgb(6, 6, 6));
                 button.HorizontalAlignment = HorizontalAlignment.Left;
@@ -41,7 +41,7 @@ namespace TopskyMapsEditor.Renderer
             StackPanel stackPanel = Main.ListStackPanel;
             int index = stackPanel.Children.IndexOf(sender as UIElement);
 
-            topskyMap = Vars.TopskyMaps[index];
+            topskyMap = Vars.TopskyMaps[index-1];
         }
     }
 }

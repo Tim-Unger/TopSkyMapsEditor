@@ -95,7 +95,7 @@ namespace TopskyMapsEditor
                     PlaceholderMainGrid.Visibility = Visibility.Hidden;
                     MainGrid.Visibility = Visibility.Visible;
 
-                    RenderScrollviewer.RenderListView(TopskyMapTitles);
+                    RenderScrollviewer.RenderListView(TopskyMaps);
                 }
                 //MapPlaceholder.Visibility = Visibility.Hidden;
             }
@@ -139,7 +139,7 @@ namespace TopskyMapsEditor
                     MainGrid.Visibility = Visibility.Visible;
 
                     //TODO
-                    RenderScrollviewer.RenderListView(TopskyMapTitles);
+                    RenderScrollviewer.RenderListView(TopskyMaps);
                 }
             }
         }
