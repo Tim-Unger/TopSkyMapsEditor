@@ -13,8 +13,8 @@ namespace TopskyMapsEditor
         public string Folder { get; set; }
         public int? Layer { get; set; }
         public int? Zoom { get; set; }
-        public List<Active> ActiveList { get; set; }
-        public string Color { get; set; }
+        public List<Active>? ActiveList { get; set; }
+        public string? Color { get; set; }
         public Style? Style { get; set; }
         public List<Line>? Lines { get; set; }
     }
