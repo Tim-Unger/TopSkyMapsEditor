@@ -152,6 +152,15 @@ namespace Parser
             return topskyMaps;
         }
 
+        public static GeneralSettings GetGeneralSettings(string content)
+        {
+            GeneralSettings settings = new();
+
+            settings.Colors = ReadColors.GetColors(content);
+
+            return settings;
+        }
+
         internal static TopskyMap ReadTopskyMap(string content)
         {
             TopskyMap topskyMap = new TopskyMap();

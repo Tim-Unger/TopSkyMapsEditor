@@ -23,6 +23,14 @@ namespace TopskyMapsEditor
         public List<Symbol>? Symbols { get; set; }
     }
 
+    public class GeneralSettings
+    {
+        public List<Color>? Colors { get; set; }
+
+        //TODO
+        //public List<Symbol> Symbols { get; set; }
+    }
+
     public class Folder
     {
         public string FolderName { get; set; }
@@ -174,4 +182,13 @@ namespace TopskyMapsEditor
 
     //TODO COORD
 
+
+    public class Color
+    {
+        public string Name { get; set; }
+        public System.Windows.Media.Color RGBColor { get; set; }
+        public int RedValue { get; set; }
+        public int GreenValue { get; set; }
+        public int BlueValue { get; set; }
+    }
 }

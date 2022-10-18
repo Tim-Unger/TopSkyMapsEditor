@@ -23,10 +23,10 @@ namespace TopskyMapsEditor.Renderer
 
                 Button button = new(); 
 
-                button.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                button.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255,255,255));
                 button.Content = map.Name.TrimEnd('\r','\n');
                 button.Padding = new Thickness(0);
-                button.Background = new SolidColorBrush(Color.FromRgb(6, 6, 6));
+                button.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(6, 6, 6));
                 button.HorizontalAlignment = HorizontalAlignment.Left;
                 button.Click += Button_Click;
 

@@ -33,6 +33,7 @@ namespace TopskyMapsEditor
 
         public static List<string> TopskyMapTitles { get; set; }
         public static List<TopskyMap> TopskyMaps { get; set; }
+        public static GeneralSettings? GeneralSettings { get; set; }
     }
 
     public partial class MainWindow : Window
@@ -87,6 +88,7 @@ namespace TopskyMapsEditor
                 //TODO
                 TopskyMapTitles = TopskyMapClass.GetTopskyMapNames(RawText);
                 TopskyMaps = TopskyMapClass.GetTopskyMaps(RawText);
+                Vars.GeneralSettings = TopskyMapClass.GetGeneralSettings(RawText);
 
                 IsTopskyFolderSelected = true;
                 SelectMapButton.Content = Path;
@@ -151,8 +153,8 @@ namespace TopskyMapsEditor
             BrowseSct.Visibility = Visibility.Hidden;
             EditMaps.Visibility = Visibility.Visible;
 
-            EditMapsButton.Background = new SolidColorBrush(Color.FromRgb(23, 23, 23));
-            BrowseSctButton.Background = new SolidColorBrush(Color.FromRgb(10, 10, 10));
+            EditMapsButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(23, 23, 23));
+            BrowseSctButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(10, 10, 10));
         }
 
         private void BrowseSctButton_Click(object sender, RoutedEventArgs e)
@@ -160,8 +162,8 @@ namespace TopskyMapsEditor
             BrowseSct.Visibility = Visibility.Visible;
             EditMaps.Visibility = Visibility.Hidden;
 
-            EditMapsButton.Background = new SolidColorBrush(Color.FromRgb(10, 10, 10));
-            BrowseSctButton.Background = new SolidColorBrush(Color.FromRgb(23, 23, 23));
+            EditMapsButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(10, 10, 10));
+            BrowseSctButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(23, 23, 23));
         }
 
         private void FolderViewButton_Click(object sender, RoutedEventArgs e) { }
