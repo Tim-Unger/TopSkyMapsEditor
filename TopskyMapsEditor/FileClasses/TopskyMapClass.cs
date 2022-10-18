@@ -20,6 +20,7 @@ namespace TopskyMapsEditor
         public List<Line>? Lines { get; set; }
         public TextProperties? TextProperties { get; set; }
         public List<Text>? Texts { get; set; }
+        public List<Symbol>? Symbols { get; set; }
     }
 
     public class Folder
@@ -111,7 +112,7 @@ namespace TopskyMapsEditor
     {
         public FontSize? FontSize { get; set; }
         public FontStyle? FontStyle { get; set; }
-        public FontAlignment? FontAlignment { get; set; }
+        public Alignment? FontAlignment { get; set; }
     }
     public enum FontSizeType
     {
@@ -135,7 +136,7 @@ namespace TopskyMapsEditor
         public bool? IsUnderlined { get; set; }
         public bool? IsStrikethrough { get; set; }
     }
-    public enum FontAlignment
+    public enum Alignment
     {
         TopLeft,
         TopCenter,
@@ -151,11 +152,26 @@ namespace TopskyMapsEditor
     public class Text
     {
         public string TextContent { get; set; }
-        public FontAlignment? TextAlignment { get; set; }
+        public Alignment? TextAlignment { get; set; }
         public string? Latitude { get; set; }
         public string? Longitude { get; set; }
         public string? Point { get; set; }
         public int? OffsetX { get; set; }
         public int? OffsetY { get; set; }
     }
+
+    public class Symbol
+    {
+        public string SymbolName { get; set; }
+        public Alignment? SymbolAlignment { get; set; }
+        public string? Latitude { get; set; }
+        public string? Longitude { get; set; }
+        public string? Point { get; set; }
+        public string? Label { get; set; }
+        public int? OffsetX { get; set; }
+        public int? OffsetY { get; set; }
+    }
+
+    //TODO COORD
+
 }

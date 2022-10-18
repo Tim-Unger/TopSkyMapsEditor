@@ -112,9 +112,9 @@ namespace TopskyMapsEditor.Parser.TopskyMap
             return style;
         }
 
-        private static FontAlignment GetFontAlignment(Match match)
+        private static Alignment GetFontAlignment(Match match)
         {
-            FontAlignment alignment = new();
+            Alignment alignment = new();
 
             GroupCollection fontAlignmentGroups = match.Groups;
 
@@ -125,33 +125,33 @@ namespace TopskyMapsEditor.Parser.TopskyMap
             switch (combinedAlignment)
             {
                 case "LT":
-                    alignment = FontAlignment.TopLeft;
+                    alignment = Alignment.TopLeft;
                     break;
                 case "LC":
-                    alignment = FontAlignment.CenterLeft;
+                    alignment = Alignment.CenterLeft;
                     break;
                 case "LB":
-                    alignment = FontAlignment.BottomLeft;
+                    alignment = Alignment.BottomLeft;
                     break;
 
                 case "CT":
-                    alignment = FontAlignment.TopCenter;
+                    alignment = Alignment.TopCenter;
                     break;
                 case "CC":
-                    alignment = FontAlignment.CenterCenter;
+                    alignment = Alignment.CenterCenter;
                     break;
                 case "CB":
-                    alignment = FontAlignment.BottomCenter;
+                    alignment = Alignment.BottomCenter;
                     break;
 
                 case "RT":
-                    alignment = FontAlignment.TopRight;
+                    alignment = Alignment.TopRight;
                     break;
                 case "RC":
-                    alignment = FontAlignment.CenterRight;
+                    alignment = Alignment.CenterRight;
                     break;
                 case "RB":
-                    alignment = FontAlignment.BottomRight;
+                    alignment = Alignment.BottomRight;
                     break;
             }
 

@@ -17,7 +17,7 @@ namespace TopskyMapsEditor.Parser.TopskyMap
 
             //TODO (fix name only allows letters)
             Regex textRegex = new Regex(
-                "TEXT(/(L|C|R)(T|C|B))?:(([A-Za-z]{1,})|(N|S)([0-9]{3}.[0-9]{2}.[0-9]{2}.[0-9]{3}):((E|W)([0-9]{3}.[0-9]{2}.[0-9]{2}.[0-9]{3}))):([A-Za-z]{1,})(:([0-9]{1,4}):([0-9]{1,4}))?",
+                "TEXT(/(L|C|R)(T|C|B))?:(([A-Za-z]{1,})|(N|S)([0-9]{3}.[0-9]{2}.[0-9]{2}.[0-9]{3}):((E|W)([0-9]{3}.[0-9]{2}.[0-9]{2}.[0-9]{3}))|([A-Z]{4}/[0-9]{1,2}(L|C|R))):([A-Za-z]{1,})(:([0-9]{1,4}):([0-9]{1,4}))?",
                 RegexOptions.Multiline
             );
             MatchCollection textMatches = textRegex.Matches(content);
@@ -33,9 +33,10 @@ namespace TopskyMapsEditor.Parser.TopskyMap
                     Fix Name 5
                     Coordinates N/S 6+7
                     Coordinates E/W 9+10
-                    Text 11
-                    Offset X 13
-                    Offset Y 14
+                    Runway Identifier 11+12
+                    Text 13
+                    Offset X 15
+                    Offset Y 16
                     */
                     GroupCollection textGroups = match.Groups;
 
@@ -44,37 +45,37 @@ namespace TopskyMapsEditor.Parser.TopskyMap
                     {
                         string textAlignemnt = textGroups[2].Value + textGroups[3].Value;
 
-                        FontAlignment alignment = new();
+                        Alignment alignment = new();
                         switch (textAlignemnt.ToUpper())
                         {
                             case "LT":
-                                alignment = FontAlignment.TopLeft;
+                                alignment = Alignment.TopLeft;
                                 break;
                             case "LC":
-                                alignment = FontAlignment.CenterLeft;
+                                alignment = Alignment.CenterLeft;
                                 break;
                             case "LB":
-                                alignment = FontAlignment.BottomLeft;
+                                alignment = Alignment.BottomLeft;
                                 break;
 
                             case "CT":
-                                alignment = FontAlignment.TopCenter;
+                                alignment = Alignment.TopCenter;
                                 break;
                             case "CC":
-                                alignment = FontAlignment.CenterCenter;
+                                alignment = Alignment.CenterCenter;
                                 break;
                             case "CB":
-                                alignment = FontAlignment.BottomCenter;
+                                alignment = Alignment.BottomCenter;
                                 break;
 
                             case "RT":
-                                alignment = FontAlignment.TopRight;
+                                alignment = Alignment.TopRight;
                                 break;
                             case "RC":
-                                alignment = FontAlignment.CenterRight;
+                                alignment = Alignment.CenterRight;
                                 break;
                             case "RB":
-                                alignment = FontAlignment.BottomRight;
+                                alignment = Alignment.BottomRight;
                                 break;
                         }
 
@@ -91,6 +92,12 @@ namespace TopskyMapsEditor.Parser.TopskyMap
                     {
                         text.Latitude = textGroups[6].Value + textGroups[7].Value;
                         text.Longitude = textGroups[8].Value + textGroups[9].Value;
+                    }
+                    //Text is over Runway
+                    //TODO Test
+                    if(textGroups[11].Success == true)
+                    {
+                        text.Point = textGroups[11].Value + textGroups[12].Value;
                     }
 
                     text.TextContent = textGroups[11].Value;

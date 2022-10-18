@@ -187,6 +187,9 @@ namespace Parser
             //Get the Texts
             topskyMap.Texts = ReadText.GetText(content);
 
+            //Get the Symbols
+            topskyMap.Symbols = ReadSymbols.GetSymbols(content);
+
             return topskyMap;
         }
     }
