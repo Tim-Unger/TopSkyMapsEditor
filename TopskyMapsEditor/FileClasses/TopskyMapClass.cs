@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace TopskyMapsEditor
 {
@@ -17,6 +18,8 @@ namespace TopskyMapsEditor
         public string? Color { get; set; }
         public Style? Style { get; set; }
         public List<Line>? Lines { get; set; }
+        public TextProperties? TextProperties { get; set; }
+        public List<Text>? Texts { get; set; }
     }
 
     public class Folder
@@ -96,11 +99,63 @@ namespace TopskyMapsEditor
 
     public class Line
     {
-        public string? StartLatitude { get;set; }
+        public string? StartLatitude { get; set; }
         public string? StartLongitude { get; set; }
         public string? EndLatitude { get; set; }
         public string? EndLongitude { get; set; }
         public string? StartPoint { get; set; }
         public string? EndPoint { get; set; }
+    }
+
+    public class TextProperties
+    {
+        public FontSize? FontSize { get; set; }
+        public FontStyle? FontStyle { get; set; }
+        public FontAlignment? FontAlignment { get; set; }
+    }
+    public enum FontSizeType
+    {
+        New,
+        Reduce,
+        Increase,
+        Multiply
+    }
+    public class FontSize
+    {
+        public FontSizeType? Type { get; set; }
+        public int? Size { get; set; }
+        //TODO Default fontsize value?
+        //public int? FontSizeCalculated { get; set; }
+    }
+
+    public class FontStyle
+    {
+        public int FontWeigth { get; set; }
+        public bool? IsItalic { get; set; }
+        public bool? IsUnderlined { get; set; }
+        public bool? IsStrikethrough { get; set; }
+    }
+    public enum FontAlignment
+    {
+        TopLeft,
+        TopCenter,
+        TopRight,
+        CenterLeft,
+        CenterCenter,
+        CenterRight,
+        BottomLeft,
+        BottomCenter,
+        BottomRight,
+    }
+
+    public class Text
+    {
+        public string TextContent { get; set; }
+        public FontAlignment? TextAlignment { get; set; }
+        public string? Latitude { get; set; }
+        public string? Longitude { get; set; }
+        public string? Point { get; set; }
+        public int? OffsetX { get; set; }
+        public int? OffsetY { get; set; }
     }
 }

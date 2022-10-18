@@ -145,15 +145,15 @@ namespace Parser
                 topskyMaps.Add(topskyMap);
             }
 
+            //Just for performance testing
             StopWatch.Stop();
             var Time = StopWatch.ElapsedMilliseconds;
+
             return topskyMaps;
         }
 
         internal static TopskyMap ReadTopskyMap(string content)
         {
-            var StopWatch = Stopwatch.StartNew();
-
             TopskyMap topskyMap = new TopskyMap();
 
             //Get the Name
@@ -180,6 +180,12 @@ namespace Parser
 
             //Get all Lines
             topskyMap.Lines = ReadLines.GetLines(content);
+
+            //Get the Text Properties
+            topskyMap.TextProperties = ReadTextProperties.GetTextProperties(content);
+
+            //Get the Texts
+            topskyMap.Texts = ReadText.GetText(content);
 
             return topskyMap;
         }

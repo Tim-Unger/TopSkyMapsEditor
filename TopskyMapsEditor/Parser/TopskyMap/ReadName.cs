@@ -18,9 +18,12 @@ namespace Parser
             {
                 GroupCollection groups = nameMatches[0].Groups;
                 name = groups[1].Value.TrimEnd('\n', '\r');
+                
             }
-
+            
             return name;
         }
+
+        
     }
 }

@@ -20,9 +20,42 @@ namespace Parser
             {
                 GroupCollection groups = folderMatches[0].Groups;
                 folder = groups[1].Value.TrimEnd('\n', '\r');
+                if (IsNameValid(folder))
+                {
+                    return folder;
+                }
+                else
+                {
+                    return "Invalid";
+                }
             }
+            else
+            {
+                return "Invalid";
+            }
+        }
 
-            return folder;
+        private static bool IsNameValid(string name)
+        {
+            //Name starts with whitespace
+            if (name.ToCharArray()[0] == ' ')
+            {
+                return false;
+            }
+            //Name is AUTO or LMAPS
+            else if (name.ToUpper() == "AUTO" || name.ToUpper() == "LMAPS")
+            {
+                return false;
+            }
+            //Name contains backslash
+            else if (name.Contains('\\'))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }
