@@ -6,10 +6,10 @@
     xmlns:local="clr-namespace:TopskyMapsEditor"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="MainWindow"
-    Width="800"
-    Height="450"
+    Width="900"
+    Height="600"
     AllowsTransparency="True"
-    Background="#060606"
+    Background="#1C2836"
     ContentRendered="Window_ContentRendered"
     WindowStyle="None"
     mc:Ignorable="d">
@@ -18,10 +18,11 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
-            <RowDefinition Height="10*" />
+            <RowDefinition Height="18*" />
             <!--<RowDefinition Height="2*" />-->
         </Grid.RowDefinitions>
 
+        <!--  Top Bar  -->
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*" />
@@ -31,7 +32,7 @@
             <Rectangle
                 Grid.Column="0"
                 Grid.ColumnSpan="1"
-                Fill="#101010" />
+                Fill="#355B87" />
 
             <TextBlock
                 Grid.Column="0"
@@ -51,13 +52,14 @@
             <Button
                 x:Name="Close"
                 Grid.Column="1"
-                Background="#232323"
+                Background="#355B87"
                 Click="Close_Click"
                 Content="X"
                 Foreground="White" />
         </Grid>
 
 
+        <!--  TODO File Selector Bar  -->
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
@@ -166,11 +168,11 @@
                 <Grid Grid.Column="1">
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="10*" />
+                        <!--<RowDefinition Height="1*" />-->
+                        <RowDefinition Height="14*" />
                     </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="0">
+                    <!--<Grid Grid.Row="0">
                         <StackPanel Orientation="Horizontal">
                             <Button
                                 x:Name="EditMapsButton"
@@ -187,7 +189,7 @@
                                 FontWeight="Bold"
                                 Foreground="White" />
                         </StackPanel>
-                    </Grid>
+                    </Grid>-->
 
                     <Grid
                         x:Name="EditMaps"
@@ -205,66 +207,76 @@
                         <Grid x:Name="ListView">
                             <Grid Grid.Column="0">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="1*" />
-                                    <RowDefinition Height="10*" />
+                                    <RowDefinition Height="3*" />
+                                    <RowDefinition Height="12*" />
                                 </Grid.RowDefinitions>
 
-                                <StackPanel
-                                    Grid.Row="0"
-                                    Margin="0,5,0,0"
-                                    Orientation="Horizontal">
-                                    <Button
-                                        x:Name="FolderViewButton"
-                                        Background="#232323"
-                                        Click="FolderViewButton_Click"
-                                        Content="Folder View"
-                                        Foreground="White" />
-                                    <Button
-                                        x:Name="ListViewButton"
-                                        Background="#101010"
-                                        Click="ListViewButton_Click"
-                                        Content="List View"
-                                        Foreground="White" />
-                                </StackPanel>
-
-                                <Grid Grid.Row="1">
+                                <Grid x:Name="ButtonGrid" Grid.Row="0">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="1*" />
                                         <RowDefinition Height="1*" />
-                                        <RowDefinition Height="8*" />
+                                        <RowDefinition Height="1*" />
                                     </Grid.RowDefinitions>
 
-                                    <TextBox
+                                    <!--<TextBox
                                         x:Name="ListViewSearch"
                                         Grid.Row="0"
-                                        Padding="0,0,0,0"
+                                        Margin="5,0,5,0"
+                                        Padding="0,5,0,5"
                                         VerticalAlignment="Center"
-                                        Background="#232323"
+                                        Background="#355B87"
+                                        FontWeight="Bold"
                                         Foreground="White"
                                         GotFocus="ListViewSearch_GotFocus"
                                         LostFocus="ListViewSearch_LostFocus"
-                                        Text="Search" />
+                                        Text="Search"
+                                        TextChanged="ListViewSearch_TextChanged" />-->
 
                                     <Button
                                         x:Name="AddTopskyMapButton"
                                         Grid.Row="1"
+                                        Margin="5,0,5,0"
+                                        Padding="0,5,0,5"
                                         VerticalAlignment="Center"
-                                        Background="#232323"
+                                        Background="#355B87"
                                         Click="AddTopskyMapButton_Click"
                                         Content="Add Map"
+                                        FontWeight="Bold"
                                         Foreground="White" />
+
+                                    <StackPanel
+                                        Grid.Row="2"
+                                        Margin="0,5,0,0"
+                                        Orientation="Horizontal">
+                                        <Button
+                                            x:Name="ListViewButton"
+                                            Padding="10,5,10,5"
+                                            Background="White"
+                                            Click="ListViewButton_Click"
+                                            Content="List View"
+                                            FontWeight="Bold"
+                                            Foreground="#1C2836" />
+                                        <Button
+                                            x:Name="FolderViewButton"
+                                            Padding="10,5,10,5"
+                                            Background="#355B87"
+                                            Click="FolderViewButton_Click"
+                                            Content="Folder View"
+                                            FontWeight="Bold"
+                                            Foreground="White" />
+                                    </StackPanel>
+                                </Grid>
+
+                                <Grid Grid.Row="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="10*" />
+                                    </Grid.RowDefinitions>
 
                                     <ScrollViewer
                                         x:Name="ListViewScrollViewer"
                                         Grid.Row="2"
                                         VerticalScrollBarVisibility="Auto">
-                                        <StackPanel x:Name="ListStackPanel">
-                                            <Button
-                                                HorizontalAlignment="Left"
-                                                Background="Black"
-                                                Content="Test Item"
-                                                Foreground="White" />
-                                        </StackPanel>
+                                        <StackPanel x:Name="ListStackPanel" />
                                     </ScrollViewer>
                                 </Grid>
                             </Grid>
@@ -279,11 +291,11 @@
                             </Grid.ColumnDefinitions>
 
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="1*" />
-                                <RowDefinition Height="10*" />
+                                <!--<RowDefinition Height="1*" />-->
+                                <RowDefinition Height="12*" />
                             </Grid.RowDefinitions>
 
-                            <Grid Grid.Row="0" Grid.Column="0">
+                            <!--<Grid Grid.Row="0" Grid.Column="0">
                                 <Grid Grid.Row="0">
                                     <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
                                         <Button
@@ -300,9 +312,40 @@
                                             Foreground="White" />
                                     </StackPanel>
                                 </Grid>
-                            </Grid>
+                            </Grid>-->
 
-                            <Grid Grid.Row="0" Grid.Column="1">
+                            <!--  View Single Map  -->
+                            <Grid
+                                x:Name="SingleMapView"
+                                Grid.Row="1"
+                                Grid.Column="0">
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="1*" />
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+                                </Grid>
+                            </Grid>
+                            <!--<Grid Grid.Row="0" Grid.Column="1">
                                 <Grid Grid.Row="0">
                                     <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
                                         <Button
@@ -319,17 +362,22 @@
                                             Foreground="White" />
                                     </StackPanel>
                                 </Grid>
-                            </Grid>
+                            </Grid>-->
+
+
                         </Grid>
 
+
+                        <Grid
+                            x:Name="SingleItemView"
+                            Grid.Row="1"
+                            Grid.Column="1" />
                     </Grid>
 
                     <Grid
                         x:Name="BrowseSct"
                         Grid.Row="1"
                         Visibility="Hidden" />
-
-
                 </Grid>
             </Grid>
         </Grid>

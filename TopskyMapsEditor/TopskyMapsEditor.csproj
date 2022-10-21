@@ -9,4 +9,8 @@
 	  <RuntimeIdentifier>win-x64</RuntimeIdentifier>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Parser\ToTopskyMap\" />
+  </ItemGroup>
+
 </Project>

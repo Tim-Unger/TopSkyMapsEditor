@@ -153,8 +153,8 @@ namespace TopskyMapsEditor
             BrowseSct.Visibility = Visibility.Hidden;
             EditMaps.Visibility = Visibility.Visible;
 
-            EditMapsButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(23, 23, 23));
-            BrowseSctButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(10, 10, 10));
+            //EditMapsButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(23, 23, 23));
+            //BrowseSctButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(10, 10, 10));
         }
 
         private void BrowseSctButton_Click(object sender, RoutedEventArgs e)
@@ -162,8 +162,8 @@ namespace TopskyMapsEditor
             BrowseSct.Visibility = Visibility.Visible;
             EditMaps.Visibility = Visibility.Hidden;
 
-            EditMapsButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(10, 10, 10));
-            BrowseSctButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(23, 23, 23));
+            //EditMapsButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(10, 10, 10));
+            //BrowseSctButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(23, 23, 23));
         }
 
         private void FolderViewButton_Click(object sender, RoutedEventArgs e) { }
@@ -214,6 +214,11 @@ namespace TopskyMapsEditor
         }
 
         private void AddTopskyMapButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ListViewSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
