@@ -11,8 +11,8 @@
     AllowsTransparency="True"
     Background="#1C2836"
     ContentRendered="Window_ContentRendered"
-    WindowStyle="None"
-    mc:Ignorable="d">
+    WindowStyle="None">
+
     <Grid>
 
         <Grid.RowDefinitions>
@@ -318,9 +318,11 @@
                             <Grid
                                 x:Name="SingleMapView"
                                 Grid.Row="1"
-                                Grid.Column="0">
+                                Grid.Column="0"
+                                Margin="5,0,0,0">
 
                                 <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*" />
                                     <RowDefinition Height="1*" />
                                     <RowDefinition Height="1*" />
                                     <RowDefinition Height="1*" />
@@ -338,11 +340,331 @@
                                     <RowDefinition Height="1*" />
                                 </Grid.RowDefinitions>
 
-                                <Grid Grid.Row="0">
+                                <!--  Name Row  -->
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="5*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Bold"
+                                        Foreground="White"
+                                        Text="Name:*" />
+                                    <TextBox
+                                        x:Name="NameTextBox"
+                                        Grid.Column="1"
+                                        VerticalAlignment="Center"
+                                        Background="#355B87"
+                                        BorderThickness="0"
+                                        Foreground="White" />
+                                </Grid>
+
+                                <!--  Folder Row  -->
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="5*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Bold"
+                                        Foreground="White"
+                                        Text="Folder:*" />
+                                    <TextBox
+                                        x:Name="FolderTextBox"
+                                        Grid.Column="1"
+                                        VerticalAlignment="Center"
+                                        Background="#355B87"
+                                        BorderThickness="0"
+                                        Foreground="White" />
+                                </Grid>
+
+                                <!--  Layer Row  -->
+                                <Grid Grid.Row="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*" />
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Bold"
+                                        Foreground="White"
+                                        Text="Layer:" />
+
+                                    <TextBox
+                                        x:Name="LayerTextBox"
+                                        Grid.Column="1"
+                                        VerticalAlignment="Center"
+                                        Background="#355B87"
+                                        BorderThickness="0"
+                                        Foreground="White" />
+                                </Grid>
+
+                                <!--  Zoom Row  -->
+                                <Grid Grid.Row="4">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*" />
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Bold"
+                                        Foreground="White"
+                                        Text="Zoom:" />
+
+                                    <TextBox
+                                        x:Name="ZoomTextBox"
+                                        Grid.Column="1"
+                                        VerticalAlignment="Center"
+                                        Background="#355B87"
+                                        BorderThickness="0"
+                                        Foreground="White" />
+                                </Grid>
+
+                                <!--  ASR Data Row  -->
+                                <Grid Grid.Row="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1.5*" />
+                                        <ColumnDefinition Width="5*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Bold"
+                                        Foreground="White"
+                                        Text="ASRData:" />
+
+                                    <TextBox
+                                        x:Name="AsrDataTextBox"
+                                        Grid.Column="1"
+                                        VerticalAlignment="Center"
+                                        Background="#355B87"
+                                        BorderThickness="0"
+                                        Foreground="White" />
+                                </Grid>
+
+                                <!--  Active Row  -->
+                                <Grid Grid.Row="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="5*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Bold"
+                                        Foreground="White"
+                                        Text="Active:" />
+
+                                    <Button
+                                        x:Name="ActiveButton"
+                                        Grid.Column="1"
+                                        Padding="10,5,10,5"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Background="#355B87"
+                                        BorderThickness="0"
+                                        Click="ActiveButton_Click"
+                                        Content="Show"
+                                        FontWeight="Bold"
+                                        Foreground="White" />
+                                </Grid>
+
+                                <!--  Color Row  -->
+                                <Grid Grid.Row="7">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="5*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Bold"
+                                        Foreground="White"
+                                        Text="Color:" />
+
+                                    <ComboBox
+                                        x:Name="ColorBox"
+                                        Grid.Column="1"
+                                        VerticalAlignment="Center"
+                                        Background="#355B87"
+                                        BorderThickness="0"
+                                        Foreground="Black" />
+                                </Grid>
+
+                                <Grid Grid.Row="8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="4*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Bold"
+                                        Foreground="White"
+                                        Text="Font Options:" />
+
+                                    <Button
+                                        x:Name="FontOptionsButton"
+                                        Grid.Column="1"
+                                        Padding="10,5,10,5"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Background="#355B87"
+                                        BorderThickness="0"
+                                        Click="ActiveButton_Click"
+                                        Content="View"
+                                        FontWeight="Bold"
+                                        Foreground="White" />
+                                </Grid>
+
+                                <!--  Style  -->
+                                <Grid Grid.Row="9">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1*" />
                                         <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
                                     </Grid.ColumnDefinitions>
+
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Bold"
+                                        Foreground="White"
+                                        Text="Style:" />
+                                    <Button
+                                        x:Name="SolidStyleButton"
+                                        Grid.Column="1"
+                                        Margin="0,0,5,0"
+                                        VerticalAlignment="Center"
+                                        Background="#355B87"
+                                        BorderThickness="0"
+                                        Content="━━━━━"
+                                        Foreground="White" />
+                                    <Button
+                                        x:Name="DashedStyleButton"
+                                        Grid.Column="2"
+                                        Margin="5,0,5,0"
+                                        VerticalAlignment="Center"
+                                        Background="#355B87"
+                                        BorderThickness="0"
+                                        Content="━ ━ ━ ━"
+                                        Foreground="White" />
+                                    <Button
+                                        x:Name="DottedStyleButton"
+                                        Grid.Column="3"
+                                        Margin="5,0,5,0"
+                                        VerticalAlignment="Center"
+                                        Background="#355B87"
+                                        BorderThickness="0"
+                                        Content="• • • •"
+                                        Foreground="White" />
+                                    <Button
+                                        x:Name="DashedDottedStyleButton"
+                                        Grid.Column="4"
+                                        Margin="5,0,5,0"
+                                        VerticalAlignment="Center"
+                                        Background="#355B87"
+                                        BorderThickness="0"
+                                        Content="━ • ━ •"
+                                        Foreground="White" />
+                                    <Button
+                                        x:Name="DashedDottedDottedStyleButton"
+                                        Grid.Column="5"
+                                        Margin="5,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Background="#355B87"
+                                        BorderThickness="0"
+                                        Content="•• ━ ••"
+                                        Foreground="White" />
+                                </Grid>
+
+                                <!--  Lines  -->
+                                <Grid Grid.Row="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="5*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Bold"
+                                        Foreground="White"
+                                        Text="Lines:" />
+
+                                    <Button
+                                        x:Name="LinesButton"
+                                        Grid.Column="1"
+                                        Padding="10,5,10,5"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Background="#355B87"
+                                        BorderThickness="0"
+                                        Click="LinesButton_Click"
+                                        Content="View Lines"
+                                        FontWeight="Bold"
+                                        Foreground="White" />
+                                </Grid>
+
+                                <!--  Symbols  -->
+                                <Grid Grid.Row="11">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="5*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Bold"
+                                        Foreground="White"
+                                        Text="Symbols:" />
+
+                                    <Button
+                                        x:Name="SymbolsButton"
+                                        Grid.Column="1"
+                                        Padding="10,5,10,5"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Background="#355B87"
+                                        BorderThickness="0"
+                                        Click="SymbolsButton_Click"
+                                        Content="View Symbols"
+                                        FontWeight="Bold"
+                                        Foreground="White" />
+                                </Grid>
+
+                                <!--  Texts  -->
+                                <Grid Grid.Row="12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="5*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Bold"
+                                        Foreground="White"
+                                        Text="Texts:" />
+
+                                    <Button
+                                        x:Name="TextsButton"
+                                        Grid.Column="1"
+                                        Padding="10,5,10,5"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Background="#355B87"
+                                        BorderThickness="0"
+                                        Click="TextsButton_Click"
+                                        Content="View Texts"
+                                        FontWeight="Bold"
+                                        Foreground="White" />
                                 </Grid>
                             </Grid>
                             <!--<Grid Grid.Row="0" Grid.Column="1">
@@ -363,8 +685,6 @@
                                     </StackPanel>
                                 </Grid>
                             </Grid>-->
-
-
                         </Grid>
 
 

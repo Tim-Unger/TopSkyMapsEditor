@@ -134,9 +134,12 @@ namespace TopskyMapsEditor.Renderer
             TopskyMap topskyMap = new TopskyMap();
 
             StackPanel stackPanel = Main.ListStackPanel;
-            int index = stackPanel.Children.IndexOf(sender as UIElement);
+            //int index = stackPanel.Children.IndexOf(sender as UIElement);
+            int index = stackPanel.Children.Count;
 
             topskyMap = Vars.TopskyMaps[index-1];
+
+            RenderMapOverview.RenderMap(topskyMap);
         }
     }
 }

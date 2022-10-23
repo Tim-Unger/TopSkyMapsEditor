@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using TopskyMapsEditor;
 using Color = TopskyMapsEditor.Color;
 
 namespace Parser
@@ -50,6 +52,17 @@ namespace Parser
             else
             {
                 return null;
+            }
+        }
+
+        public static void AddColorsToDropdown()
+        {
+            //null error is fine as this method is only executed if the List is not null
+            List<Color> colorList = Vars.GeneralSettings.Colors;
+
+            foreach(var color in colorList)
+            {
+                MainWindow.Main.ColorBox.Items.Add(color.Name);
             }
         }
     }

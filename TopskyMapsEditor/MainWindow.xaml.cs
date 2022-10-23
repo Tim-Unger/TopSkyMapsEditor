@@ -20,6 +20,7 @@ using System.Drawing.Text;
 using static TopskyMapsEditor.Vars;
 using MessageBox = System.Windows.Forms.MessageBox;
 using TopskyMapsEditor.Renderer;
+using Parser;
 
 namespace TopskyMapsEditor
 {
@@ -89,6 +90,11 @@ namespace TopskyMapsEditor
                 TopskyMapTitles = TopskyMapClass.GetTopskyMapNames(RawText);
                 TopskyMaps = TopskyMapClass.GetTopskyMaps(RawText);
                 Vars.GeneralSettings = TopskyMapClass.GetGeneralSettings(RawText);
+
+                if(Vars.GeneralSettings.Colors != null)
+                {
+                    ReadColors.AddColorsToDropdown();
+                }
 
                 IsTopskyFolderSelected = true;
                 SelectMapButton.Content = Path;
@@ -219,6 +225,26 @@ namespace TopskyMapsEditor
         }
 
         private void ListViewSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void ActiveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LinesButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SymbolsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TextsButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
