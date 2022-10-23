@@ -135,9 +135,17 @@ namespace TopskyMapsEditor.Renderer
 
             StackPanel stackPanel = Main.ListStackPanel;
             //int index = stackPanel.Children.IndexOf(sender as UIElement);
-            int index = stackPanel.Children.Count;
+            var buttonText = (sender as Button).Content;
 
-            topskyMap = Vars.TopskyMaps[index-1];
+
+            foreach(var map in Vars.TopskyMaps)
+            {
+                if(map.Name == buttonText)
+                {
+                    topskyMap = map;
+                    break;
+                }
+            }
 
             RenderMapOverview.RenderMap(topskyMap);
         }

@@ -15,6 +15,7 @@ namespace Parser
 {
     internal class TopskyMapClass
     {
+        //TODO ASRdata
         public static List<Folder> GetTopskyFolders(string Raw)
         {
             List<Folder> mapFolders = new List<Folder>();
