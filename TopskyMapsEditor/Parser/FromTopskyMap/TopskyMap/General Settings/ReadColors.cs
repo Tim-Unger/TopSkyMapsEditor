@@ -57,7 +57,9 @@ namespace Parser
 
         public static void AddColorsToDropdown()
         {
-            //null error is fine as this method is only executed if the List is not null
+            //null error is suppressed, as this method is only executed if the value is not null
+            #pragma warning disable CS8600, CS8602
+
             List<Color> colorList = Vars.GeneralSettings.Colors;
 
             foreach(var color in colorList)

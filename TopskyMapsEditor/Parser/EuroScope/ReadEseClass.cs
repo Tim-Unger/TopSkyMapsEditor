@@ -14,9 +14,9 @@ namespace Parser
     {
         public static List<Position> ReadEse(string Path)
         {
-            List<Position> positions = new List<Position>();
+            List<Position> positions = new();
 
-            StreamReader streamReader = new StreamReader(Path);
+            StreamReader streamReader = new(Path);
 
             string File = streamReader.ReadToEnd();
             streamReader.Close();
@@ -34,9 +34,9 @@ namespace Parser
             {
                 if (!line.StartsWith("[") && line != "")
                 {
-                    Position position = new Position();
+                    Position position = new();
 
-                    Regex positionRegex = new Regex(
+                    Regex positionRegex = new(
                         "(([A-Z]{2,4})((-|_)([A-Z]{1,3}|[0-9]{1,3}))?_(ATIS|DEL|GND|TWR|APP|DEP|CTR|FSS)):(.{1,}):([0-9]{3}.[0-9]{3}):([A-Za-z]{1,}|[0-9]{1,})(?=:)"
                     );
 
@@ -64,8 +64,8 @@ namespace Parser
 
         public static string? CheckIfEseExists(string Path)
         {
-            var directory = System.IO.Path.GetDirectoryName(Path);
-            var files = Directory.GetFiles(directory, "*.ese", SearchOption.TopDirectoryOnly);
+            string directory = System.IO.Path.GetDirectoryName(Path);
+            string[]? files = Directory.GetFiles(directory, "*.ese", SearchOption.TopDirectoryOnly);
 
             if (files.Length == 1)
             {

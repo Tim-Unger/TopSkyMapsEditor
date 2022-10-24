@@ -290,10 +290,12 @@
                                 <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
 
-                            <Grid.RowDefinitions>
-                                <!--<RowDefinition Height="1*" />-->
+                            <!--<Grid.RowDefinitions>
+                            -->
+                            <!--<RowDefinition Height="1*" />-->
+                            <!--
                                 <RowDefinition Height="12*" />
-                            </Grid.RowDefinitions>
+                            </Grid.RowDefinitions>-->
 
                             <!--<Grid Grid.Row="0" Grid.Column="0">
                                 <Grid Grid.Row="0">
@@ -479,7 +481,9 @@
                                 <Grid Grid.Row="7">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1*" />
-                                        <ColumnDefinition Width="5*" />
+                                        <ColumnDefinition Width="3*" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock
@@ -495,6 +499,32 @@
                                         Background="#355B87"
                                         BorderThickness="0"
                                         Foreground="Black" />
+
+                                    <Button
+                                        x:Name="EditColorButton"
+                                        Grid.Column="2"
+                                        Padding="5,5,5,5"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Background="#355B87"
+                                        BorderThickness="0"
+                                        Click="ActiveButton_Click"
+                                        Content="Show"
+                                        FontWeight="Bold"
+                                        Foreground="White" />
+
+                                    <Button
+                                        x:Name="AddColorButton"
+                                        Grid.Column="3"
+                                        Padding="5,5,5,5"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Background="#355B87"
+                                        BorderThickness="0"
+                                        Click="ActiveButton_Click"
+                                        Content="Add"
+                                        FontWeight="Bold"
+                                        Foreground="White" />
                                 </Grid>
 
                                 <Grid Grid.Row="8">
@@ -685,13 +715,42 @@
                                     </StackPanel>
                                 </Grid>
                             </Grid>-->
+                            <Grid
+                                x:Name="SingleItemView"
+                                Grid.Row="0"
+                                Grid.Column="1">
+
+                                <!--<Grid x:Name="ActiveViewGrid">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="2*" />
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="12*" />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="1" Grid.RowSpan="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition Width="10*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="1*" />
+                                            <RowDefinition Height="1*" />
+                                        </Grid.RowDefinitions>
+
+                                        <RadioButton
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            GroupName="ActivationType" />
+                                    </Grid>
+                                </Grid>-->
+                            </Grid>
                         </Grid>
 
-
-                        <Grid
-                            x:Name="SingleItemView"
-                            Grid.Row="1"
-                            Grid.Column="1" />
                     </Grid>
 
                     <Grid

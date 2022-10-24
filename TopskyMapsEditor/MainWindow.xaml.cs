@@ -21,6 +21,7 @@ using static TopskyMapsEditor.Vars;
 using MessageBox = System.Windows.Forms.MessageBox;
 using TopskyMapsEditor.Renderer;
 using Parser;
+using Renderer;
 
 namespace TopskyMapsEditor
 {
@@ -35,11 +36,15 @@ namespace TopskyMapsEditor
         public static List<string> TopskyMapTitles { get; set; }
         public static List<TopskyMap> TopskyMaps { get; set; }
         public static GeneralSettings? GeneralSettings { get; set; }
+
+        public static List<string>? TopskyAreas { get; set; }
     }
 
     public partial class MainWindow : Window
     {
+        //TODO?
         public static MainWindow Main;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -57,20 +62,23 @@ namespace TopskyMapsEditor
 
         private void SelectMapButton_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog fileDialog = new OpenFileDialog();
-
-            fileDialog.InitialDirectory = Environment.GetFolderPath(
-                Environment.SpecialFolder.MyDocuments
-            );
-            fileDialog.Filter = "TopSkyMap.txt (*.txt)|*.txt|All files (*.*)|*.*";
+            selectPath:
+            OpenFileDialog fileDialog =
+                new()
+                {
+                    InitialDirectory = Environment.GetFolderPath(
+                        Environment.SpecialFolder.MyDocuments
+                    ),
+                    Filter = "TopSkyMap.txt (*.txt)|*.txt|All files (*.*)|*.*"
+                };
 
             if (fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                string Path = fileDialog.FileName;
+                string path = fileDialog.FileName;
 
-                if (System.IO.Path.GetFileNameWithoutExtension(Path) != "TopSkyMaps")
+                if (System.IO.Path.GetFileNameWithoutExtension(path) != "TopSkyMaps")
                 {
-                    DialogResult result = System.Windows.Forms.MessageBox.Show(
+                    DialogResult result = MessageBox.Show(
                         "The File you selected is not named TopSkyMaps, do you want to continue anyways?",
                         "Wrong File Name",
                         MessageBoxButtons.YesNo
@@ -78,11 +86,16 @@ namespace TopskyMapsEditor
 
                     if (result == System.Windows.Forms.DialogResult.No)
                     {
-                        //TODO Rerun Dialog
+                        goto selectPath;
+                    }
+                    else
+                    {
+                        goto readFile;
                     }
                 }
 
-                StreamReader streamReader = new StreamReader(Path);
+                readFile:
+                StreamReader streamReader = new(path);
                 string RawText = streamReader.ReadToEnd();
                 streamReader.Close();
 
@@ -90,14 +103,15 @@ namespace TopskyMapsEditor
                 TopskyMapTitles = TopskyMapClass.GetTopskyMapNames(RawText);
                 TopskyMaps = TopskyMapClass.GetTopskyMaps(RawText);
                 Vars.GeneralSettings = TopskyMapClass.GetGeneralSettings(RawText);
+                Vars.TopskyAreas = ReadAreas.GetAreas(path);
 
-                if(Vars.GeneralSettings.Colors != null)
+                if (Vars.GeneralSettings.Colors != null)
                 {
                     ReadColors.AddColorsToDropdown();
                 }
 
                 IsTopskyFolderSelected = true;
-                SelectMapButton.Content = Path;
+                SelectMapButton.Content = path;
                 if (IsTopskyFolderSelected && IsSctFolderSelected)
                 {
                     PlaceholderMainGrid.Visibility = Visibility.Hidden;
@@ -111,36 +125,40 @@ namespace TopskyMapsEditor
 
         private void SelectSctButton_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog fileDialog = new OpenFileDialog();
-
-            fileDialog.InitialDirectory = Environment.GetFolderPath(
-                Environment.SpecialFolder.MyDocuments
-            );
-            fileDialog.Filter = "SCT file (*.sct)|*.sct|All files (*.*)|*.*";
+            OpenFileDialog fileDialog =
+                new()
+                {
+                    InitialDirectory = Environment.GetFolderPath(
+                        Environment.SpecialFolder.MyDocuments
+                    ),
+                    Filter = "SCT file (*.sct)|*.sct|All files (*.*)|*.*"
+                };
 
             if (fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                var Path = fileDialog.FileName;
+                var path = fileDialog.FileName;
 
-                StreamReader streamReader = new StreamReader(Path);
+                StreamReader streamReader = new(path);
                 string RawText = streamReader.ReadToEnd();
+                streamReader.Close();
 
                 SctClass.ReadSctFile(RawText);
 
-                string EseSameFolderString = ReadEseClass.CheckIfEseExists(Path);
+                string? eseSameFolderString = ReadEseClass.CheckIfEseExists(path);
 
-                if (EseSameFolderString != null)
+                if (eseSameFolderString != null)
                 {
-                    DialogResult dialogResult = MessageBox.Show("ESE found in the same folder as the SCT.\nDo you want to use this ESE?", "Use ESE", MessageBoxButtons.YesNo);
+                    ReadEseClass.ReadEse(path);
+                    //DialogResult dialogResult = MessageBox.Show("ESE found in the same folder as the SCT.\nDo you want to use this ESE?", "Use ESE", MessageBoxButtons.YesNo);
 
-                    if (dialogResult == System.Windows.Forms.DialogResult.Yes)
-                    {
-                        ReadEseClass.ReadEse(Path);
-                    }
+                    //if (dialogResult == System.Windows.Forms.DialogResult.Yes)
+                    //{
+                    //    ReadEseClass.ReadEse(Path);
+                    //}
                 }
 
                 IsSctFolderSelected = true;
-                SelectSctButton.Content = Path;
+                SelectSctButton.Content = path;
                 if (IsTopskyFolderSelected && IsSctFolderSelected)
                 {
                     PlaceholderMainGrid.Visibility = Visibility.Hidden;
@@ -186,12 +204,14 @@ namespace TopskyMapsEditor
 
         private void SelectEse_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog fileDialog = new OpenFileDialog();
-
-            fileDialog.InitialDirectory = Environment.GetFolderPath(
-                Environment.SpecialFolder.MyDocuments
-            );
-            fileDialog.Filter = "ESE file (*.ese)|*.ese|All files (*.*)|*.*";
+            OpenFileDialog fileDialog =
+                new()
+                {
+                    InitialDirectory = Environment.GetFolderPath(
+                        Environment.SpecialFolder.MyDocuments
+                    ),
+                    Filter = "ESE file (*.ese)|*.ese|All files (*.*)|*.*"
+                };
 
             if (fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -214,39 +234,21 @@ namespace TopskyMapsEditor
             //string input += e.KeyChar.ToString();
         }
 
-        private void ListViewSearch_LostFocus(object sender, RoutedEventArgs e)
-        {
+        private void ListViewSearch_LostFocus(object sender, RoutedEventArgs e) { }
 
+        private void AddTopskyMapButton_Click(object sender, RoutedEventArgs e) { }
+
+        private void ListViewSearch_TextChanged(object sender, TextChangedEventArgs e) { }
+
+        private void ActiveButton_Click(object sender, RoutedEventArgs e) 
+        {
+            RenderActiveTriggers.RenderTriggers(NameTextBox.Text);
         }
 
-        private void AddTopskyMapButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void LinesButton_Click(object sender, RoutedEventArgs e) { }
 
-        }
+        private void SymbolsButton_Click(object sender, RoutedEventArgs e) { }
 
-        private void ListViewSearch_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void ActiveButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void LinesButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void SymbolsButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void TextsButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        private void TextsButton_Click(object sender, RoutedEventArgs e) { }
     }
 }

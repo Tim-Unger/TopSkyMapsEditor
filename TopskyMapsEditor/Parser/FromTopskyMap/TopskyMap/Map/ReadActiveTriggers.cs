@@ -13,6 +13,7 @@ namespace Parser
         //TODO multiple, separated with comma
         public static List<Active>? GetActiveTriggers(string content)
         {
+            //TODO refactor
             List<Active> activeTriggers = new List<Active>();
 
             Regex activeTypeRegex = new Regex(
@@ -180,6 +181,19 @@ namespace Parser
                             if (areaMatches.Count == 1)
                             {
                                 GroupCollection areaGroups = areaMatches[0].Groups;
+
+                                List<string> activeAreas = new();
+                                List<string> notActiveAreas = new();
+
+                                activeAreas.Add(areaGroups[1].Value);
+
+                                if (areaGroups[2].Success == true)
+                                {
+                                    notActiveAreas.Add(areaGroups[2].Value);
+                                }
+
+                                active.ActiveAreasList = activeAreas;
+                                active.NotActiveAreasList = notActiveAreas;
                             }
                         }
 
@@ -268,7 +282,7 @@ namespace Parser
                             }
                         }
 
-                        //TODO
+                        //TODO Read Station IDs
                         if (activeType == "ID") { }
                     }
 

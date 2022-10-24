@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -29,23 +31,44 @@ namespace Parser
                 StringSplitOptions.None
             );
 
-            int vorStartIndex = Array.FindIndex(lines, content => content.StartsWith("[VOR]")) + 1;
-            int ndbStartIndex = Array.FindIndex(lines, content => content.StartsWith("[NDB]")) + 1;
-            int fixesStartIndex =
-                Array.FindIndex(lines, content => content.StartsWith("[FIXES]")) + 1;
-            int airportStartIndex =
-                Array.FindIndex(lines, content => content.StartsWith("[AIRPORT]")) + 1;
-
-            int runwayStartIndex =
-                Array.FindIndex(lines, content => content.StartsWith("[RUNWAY]")) + 1;
-
-            var vorArray = lines[vorStartIndex..];
-            var ndbArray = lines[ndbStartIndex..];
-            var fixesArray = lines[fixesStartIndex..];
-            var airportArray = lines[airportStartIndex..];
-            var runwayArray = lines[runwayStartIndex..];
+            string[] vorArray = SplitArray(lines, "[VOR]");
+            string[] ndbArray = SplitArray(lines, "[NDB]");
+            string[] fixesArray = SplitArray(lines, "[FIXES]");
+            string[] airportArray = SplitArray(lines, "[AIRPORT]");
+            string[] runwayArray = SplitArray(lines, "[RUNWAY]");
 
             //Find all VORs
+            sctFile.vors = ReadVors(vorArray);
+
+            //Find all NDBs
+            sctFile.ndbs = ReadNdbs(ndbArray);
+
+            //Find all Fixes
+            sctFile.fixes = ReadFixes(fixesArray);
+
+            //Find all Runways
+            List<Runway> runwayList = ReadRunways(runwayArray);
+
+            //Find all Airports
+            sctFile.airports = ReadAirports(airportArray, runwayList);
+
+            StopWatch.Stop();
+            var Time = StopWatch.ElapsedMilliseconds;
+            return sctFile;
+        }
+
+        private static string[] SplitArray(string[] lines, string search)
+        {
+            int index = Array.FindIndex(lines, content => content.StartsWith(search)) + 1;
+
+            var array = lines[index..];
+
+            return array;
+        }
+
+        private static List<Vor> ReadVors(string[] vorArray)
+        {
+            List<Vor> vorList = new List<Vor>();
             foreach (var vorLine in vorArray)
             {
                 if (!vorLine.StartsWith("["))
@@ -66,7 +89,7 @@ namespace Parser
                         vor.Coordinates = groups[3].Value;
                     }
 
-                    VorList.Add(vor);
+                    vorList.Add(vor);
                 }
                 else
                 {
@@ -74,7 +97,12 @@ namespace Parser
                 }
             }
 
-            //Find all NDBs
+            return vorList;
+        }
+
+        private static List<Ndb> ReadNdbs(string[] ndbArray)
+        {
+            List<Ndb> ndbList = new List<Ndb>();
             foreach (var ndbLine in ndbArray)
             {
                 if (!ndbLine.StartsWith("["))
@@ -95,7 +123,7 @@ namespace Parser
                         ndb.Coordinates = groups[3].Value;
                     }
 
-                    NdbList.Add(ndb);
+                    ndbList.Add(ndb);
                 }
                 else
                 {
@@ -103,36 +131,12 @@ namespace Parser
                 }
             }
 
-            //Find all Fixes
-            foreach (var fixLine in fixesArray)
-            {
-                if (!fixLine.StartsWith("["))
-                {
-                    var fix = new Fix();
+            return ndbList;
+        }
 
-                    Regex FixRegex = new Regex(
-                        "(\\S{1,})\\s{1,}((N|S)([0-9]{3}.[0-9]{2}.[0-9]{2}.[0-9]{3}\\s{1,})(E|W)([0-9]{3}).[0-9]{2}.[0-9]{2}.[0-9]{3})"
-                    );
-
-                    MatchCollection fixMatches = FixRegex.Matches(fixLine);
-                    if (fixMatches.Count == 1)
-                    {
-                        GroupCollection groups = fixMatches[0].Groups;
-
-                        fix.Name = groups[1].Value;
-                        fix.Coordinates = groups[2].Value;
-                    }
-
-                    FixList.Add(fix);
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            var Runways = new List<Runway>();
-            //Find all Runways
+        private static List<Runway> ReadRunways(string[] runwayArray)
+        {
+            var runwayList = new List<Runway>();    
             foreach (var runwayLine in runwayArray)
             {
                 if (!runwayLine.StartsWith("["))
@@ -159,7 +163,7 @@ namespace Parser
                         runway.Airport = groups[17].Value;
                     }
 
-                    Runways.Add(runway);
+                    runwayList.Add(runway);
                 }
                 else
                 {
@@ -167,7 +171,12 @@ namespace Parser
                 }
             }
 
-            //Find all Airports
+            return runwayList;
+        }
+
+        private static List<Airport> ReadAirports(string[] airportArray, List<Runway> runwayList)
+        {
+            List<Airport> airportList = new List<Airport>();   
             foreach (var airportLine in airportArray)
             {
                 if (!airportLine.StartsWith("["))
@@ -190,7 +199,7 @@ namespace Parser
                         airport.Coordinates = groups[3].Value;
                     }
 
-                    foreach (var Runway in Runways)
+                    foreach (var Runway in runwayList)
                     {
                         if (Runway.Airport == airport.Name)
                         {
@@ -199,7 +208,7 @@ namespace Parser
                     }
                     airport.runways = RunwayList;
 
-                    AirportList.Add(airport);
+                    airportList.Add(airport);
                 }
                 else
                 {
@@ -207,16 +216,40 @@ namespace Parser
                 }
             }
 
-            sctFile.vors = VorList;
-            sctFile.ndbs = NdbList;
-            sctFile.fixes = FixList;
-            sctFile.airports = AirportList;
-
-            StopWatch.Stop();
-            var Time = StopWatch.ElapsedMilliseconds;
-            return sctFile;
+            return airportList;
         }
 
-        
+        private static List<Fix> ReadFixes(string[] fixesArray)
+        {
+            List<Fix> fixList = new List<Fix>();
+            foreach (var fixLine in fixesArray)
+            {
+                if (!fixLine.StartsWith("["))
+                {
+                    var fix = new Fix();
+
+                    Regex FixRegex = new Regex(
+                        "(\\S{1,})\\s{1,}((N|S)([0-9]{3}.[0-9]{2}.[0-9]{2}.[0-9]{3}\\s{1,})(E|W)([0-9]{3}).[0-9]{2}.[0-9]{2}.[0-9]{3})"
+                    );
+
+                    MatchCollection fixMatches = FixRegex.Matches(fixLine);
+                    if (fixMatches.Count == 1)
+                    {
+                        GroupCollection groups = fixMatches[0].Groups;
+
+                        fix.Name = groups[1].Value;
+                        fix.Coordinates = groups[2].Value;
+                    }
+
+                    fixList.Add(fix);
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return fixList;
+        }
     }
 }
