@@ -22,7 +22,7 @@ namespace TopskyMapsEditor.Renderer
             Padding = new Thickness(0, 5, 0, 5),
             Margin = new Thickness(5, 0, 5, 0),
             VerticalAlignment = VerticalAlignment.Center,
-            Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(53, 91, 135)),
+            Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(35, 50, 68)),
             FontWeight = FontWeights.Bold,
             Foreground = new SolidColorBrush(Colors.White),
             Text = "Search"
@@ -38,7 +38,7 @@ namespace TopskyMapsEditor.Renderer
             Thickness margin = new Thickness(5, 0, 5, 0);
             Thickness padding = new Thickness(0, 5, 0, 5);
             System.Windows.Media.Color darkBlue = System.Windows.Media.Color.FromRgb(28, 40, 54);
-            System.Windows.Media.Color lightBlue = System.Windows.Media.Color.FromRgb(53, 91, 135);
+            System.Windows.Media.Color lightBlue = System.Windows.Media.Color.FromRgb(35, 50, 68);
 
 
             foreach (var map in listIn)

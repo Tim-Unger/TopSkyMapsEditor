@@ -11,7 +11,7 @@ namespace TopskyMapsEditor.Renderer
     public class RenderMapOverview : MainWindow
     {
         public static SolidColorBrush White = new SolidColorBrush(Colors.White);
-        public static SolidColorBrush LightBlue = new SolidColorBrush(System.Windows.Media.Color.FromRgb(53, 91, 135));
+        public static SolidColorBrush LightBlue = new SolidColorBrush(System.Windows.Media.Color.FromRgb(35, 50, 68));
         public static SolidColorBrush DarkBlue = new SolidColorBrush(System.Windows.Media.Color.FromRgb(28, 40, 54));
         public static void RenderMap(TopskyMap map)
         {

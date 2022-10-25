@@ -73,7 +73,7 @@ namespace Renderer
 
             textBox.Foreground = new SolidColorBrush(Colors.White);
             textBox.Background = new SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(53, 91, 135)
+                System.Windows.Media.Color.FromRgb(35, 50, 68)
             );
             textBox.Text = content;
             textBox.BorderThickness = new Thickness(0);

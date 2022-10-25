@@ -32,7 +32,7 @@
             <Rectangle
                 Grid.Column="0"
                 Grid.ColumnSpan="1"
-                Fill="#355B87" />
+                Fill="#233244" />
 
             <TextBlock
                 Grid.Column="0"
@@ -52,10 +52,10 @@
             <Button
                 x:Name="Close"
                 Grid.Column="1"
-                Background="#355B87"
+                Background="#233244"
                 Click="Close_Click"
                 Content="X"
-                Foreground="White" />
+                Foreground="White" BorderThickness="0"/>
         </Grid>
 
 
@@ -86,7 +86,8 @@
                     Padding="20,5,20,5"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Background="#232323"
+                    Background="#233244"
+                    BorderThickness="0"
                     Click="SelectMapButton_Click"
                     Content="Set"
                     Foreground="White" />
@@ -111,7 +112,8 @@
                     Padding="20,5,20,5"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Background="#232323"
+                    Background="#233244"
+                    BorderThickness="0"
                     Click="SelectSctButton_Click"
                     Content="Set"
                     Foreground="White" />
@@ -136,7 +138,8 @@
                     Padding="20,5,20,5"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Background="#232323"
+                    Background="#233244"
+                    BorderThickness="0"
                     Click="SelectEse_Click"
                     Content="Set"
                     Foreground="White" />
@@ -238,7 +241,8 @@
                                         Margin="5,0,5,0"
                                         Padding="0,5,0,5"
                                         VerticalAlignment="Center"
-                                        Background="#355B87"
+                                        Background="#233244"
+                                        BorderThickness="0"
                                         Click="AddTopskyMapButton_Click"
                                         Content="Add Map"
                                         FontWeight="Bold"
@@ -252,14 +256,16 @@
                                             x:Name="ListViewButton"
                                             Padding="10,5,10,5"
                                             Background="White"
+                                            BorderThickness="0"
                                             Click="ListViewButton_Click"
                                             Content="List View"
                                             FontWeight="Bold"
-                                            Foreground="#1C2836" />
+                                            Foreground="#233244" />
                                         <Button
                                             x:Name="FolderViewButton"
                                             Padding="10,5,10,5"
-                                            Background="#355B87"
+                                            Background="#233244"
+                                            BorderThickness="0"
                                             Click="FolderViewButton_Click"
                                             Content="Folder View"
                                             FontWeight="Bold"
@@ -358,7 +364,7 @@
                                         x:Name="NameTextBox"
                                         Grid.Column="1"
                                         VerticalAlignment="Center"
-                                        Background="#355B87"
+                                        Background="#233244"
                                         BorderThickness="0"
                                         Foreground="White" />
                                 </Grid>
@@ -369,7 +375,7 @@
                                         <ColumnDefinition Width="1*" />
                                         <ColumnDefinition Width="5*" />
                                     </Grid.ColumnDefinitions>
-
+ 
                                     <TextBlock
                                         VerticalAlignment="Center"
                                         FontWeight="Bold"
@@ -379,7 +385,7 @@
                                         x:Name="FolderTextBox"
                                         Grid.Column="1"
                                         VerticalAlignment="Center"
-                                        Background="#355B87"
+                                        Background="#233244"
                                         BorderThickness="0"
                                         Foreground="White" />
                                 </Grid>
@@ -401,7 +407,7 @@
                                         x:Name="LayerTextBox"
                                         Grid.Column="1"
                                         VerticalAlignment="Center"
-                                        Background="#355B87"
+                                        Background="#233244"
                                         BorderThickness="0"
                                         Foreground="White" />
                                 </Grid>
@@ -423,7 +429,7 @@
                                         x:Name="ZoomTextBox"
                                         Grid.Column="1"
                                         VerticalAlignment="Center"
-                                        Background="#355B87"
+                                        Background="#233244"
                                         BorderThickness="0"
                                         Foreground="White" />
                                 </Grid>
@@ -445,7 +451,7 @@
                                         x:Name="AsrDataTextBox"
                                         Grid.Column="1"
                                         VerticalAlignment="Center"
-                                        Background="#355B87"
+                                        Background="#233244"
                                         BorderThickness="0"
                                         Foreground="White" />
                                 </Grid>
@@ -469,7 +475,7 @@
                                         Padding="10,5,10,5"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Center"
-                                        Background="#355B87"
+                                        Background="#233244"
                                         BorderThickness="0"
                                         Click="ActiveButton_Click"
                                         Content="Show"
@@ -496,7 +502,7 @@
                                         x:Name="ColorBox"
                                         Grid.Column="1"
                                         VerticalAlignment="Center"
-                                        Background="#355B87"
+                                        Background="#233244"
                                         BorderThickness="0"
                                         Foreground="Black" />
 
@@ -506,7 +512,7 @@
                                         Padding="5,5,5,5"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Center"
-                                        Background="#355B87"
+                                        Background="#233244"
                                         BorderThickness="0"
                                         Click="ActiveButton_Click"
                                         Content="Show"
@@ -519,7 +525,7 @@
                                         Padding="5,5,5,5"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Center"
-                                        Background="#355B87"
+                                        Background="#233244"
                                         BorderThickness="0"
                                         Click="ActiveButton_Click"
                                         Content="Add"
@@ -545,7 +551,7 @@
                                         Padding="10,5,10,5"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Center"
-                                        Background="#355B87"
+                                        Background="#233244"
                                         BorderThickness="0"
                                         Click="ActiveButton_Click"
                                         Content="View"
@@ -574,7 +580,7 @@
                                         Grid.Column="1"
                                         Margin="0,0,5,0"
                                         VerticalAlignment="Center"
-                                        Background="#355B87"
+                                        Background="#233244"
                                         BorderThickness="0"
                                         Content="━━━━━"
                                         Foreground="White" />
@@ -583,7 +589,7 @@
                                         Grid.Column="2"
                                         Margin="5,0,5,0"
                                         VerticalAlignment="Center"
-                                        Background="#355B87"
+                                        Background="#233244"
                                         BorderThickness="0"
                                         Content="━ ━ ━ ━"
                                         Foreground="White" />
@@ -592,7 +598,7 @@
                                         Grid.Column="3"
                                         Margin="5,0,5,0"
                                         VerticalAlignment="Center"
-                                        Background="#355B87"
+                                        Background="#233244"
                                         BorderThickness="0"
                                         Content="• • • •"
                                         Foreground="White" />
@@ -601,7 +607,7 @@
                                         Grid.Column="4"
                                         Margin="5,0,5,0"
                                         VerticalAlignment="Center"
-                                        Background="#355B87"
+                                        Background="#233244"
                                         BorderThickness="0"
                                         Content="━ • ━ •"
                                         Foreground="White" />
@@ -610,7 +616,7 @@
                                         Grid.Column="5"
                                         Margin="5,0,0,0"
                                         VerticalAlignment="Center"
-                                        Background="#355B87"
+                                        Background="#233244"
                                         BorderThickness="0"
                                         Content="•• ━ ••"
                                         Foreground="White" />
@@ -635,7 +641,7 @@
                                         Padding="10,5,10,5"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Center"
-                                        Background="#355B87"
+                                        Background="#233244"
                                         BorderThickness="0"
                                         Click="LinesButton_Click"
                                         Content="View Lines"
@@ -662,7 +668,7 @@
                                         Padding="10,5,10,5"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Center"
-                                        Background="#355B87"
+                                        Background="#233244             "
                                         BorderThickness="0"
                                         Click="SymbolsButton_Click"
                                         Content="View Symbols"
@@ -689,7 +695,7 @@
                                         Padding="10,5,10,5"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Center"
-                                        Background="#355B87"
+                                        Background="#233244"
                                         BorderThickness="0"
                                         Click="TextsButton_Click"
                                         Content="View Texts"

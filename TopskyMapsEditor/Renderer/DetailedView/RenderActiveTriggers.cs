@@ -47,7 +47,8 @@ namespace Renderer
 
             addNewButton.Foreground = new SolidColorBrush(Colors.White);
             addNewButton.Content = "Add new";
-            addNewButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(53, 91, 135));
+            addNewButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(35, 50, 68));
+            addNewButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(35, 50, 68));
             addNewButton.BorderThickness = new Thickness(0);
             addNewButton.Click += AddNewButton_Click;
             addNewButton.Margin = new Thickness(5);
@@ -70,6 +71,7 @@ namespace Renderer
             grid.RowDefinitions.Add(AddRow(2));
             grid.RowDefinitions.Add(AddRow(15));
             ScrollViewer scrollViewer = new();
+            scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
 
             StackPanel stackPanel = new();
 
@@ -96,8 +98,9 @@ namespace Renderer
                 stackPanel.Children.Add(singleActiveTriggerGrid);
             }
 
-            grid.Children.Add(stackPanel);
-            Grid.SetRow(stackPanel, 1);
+            grid.Children.Add(scrollViewer);
+            scrollViewer.Content = stackPanel;
+            Grid.SetRow(scrollViewer, 1);
             Main.SingleItemView.Children.Add(grid);
         }
 

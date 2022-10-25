@@ -30,7 +30,7 @@ namespace Renderer
             {
                 Foreground = new SolidColorBrush(Colors.White),
                 Content = "Add new",
-                Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(53, 91, 135)),
+                Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(35, 50, 68)),
                 BorderThickness = new Thickness(0),
                 //TODO event handler
                 //addAreaButton.Click += AddNewButton_Click;
@@ -62,7 +62,7 @@ namespace Renderer
             {
                 Foreground = new SolidColorBrush(Colors.White),
                 Content = "Add new",
-                Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(53, 91, 135)),
+                Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(35, 50, 68)),
                 BorderThickness = new Thickness(0),
                 //TODO event handler
                 //addAreaButton.Click += AddNewButton_Click;

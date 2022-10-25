@@ -62,6 +62,7 @@ namespace TopskyMapsEditor
 
         private void SelectMapButton_Click(object sender, RoutedEventArgs e)
         {
+            //TODO fix crash when a map is already selected and the button is clicked
             selectPath:
             OpenFileDialog fileDialog =
                 new()
