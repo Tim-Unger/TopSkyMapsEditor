@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Windows.Media;
 using TopskyMapsEditor;
 using TextBox = System.Windows.Controls.TextBox;
+using static Functions.AddFunctions;
 
 namespace Renderer
 {
@@ -93,44 +94,27 @@ namespace Renderer
             //Minute
             grid.ColumnDefinitions.Add(AddColumn(1));
 
-            TextBox year = addTextBox(date.Year.ToString());
+            TextBox year = AddTextBox(date.Year.ToString());
             grid.Children.Add(year);
             Grid.SetColumn(year, 0);
 
-            TextBox month = addTextBox(date.Month.ToString());
+            TextBox month = AddTextBox(date.Month.ToString());
             grid.Children.Add(month);
             Grid.SetColumn(month, 1);
 
-            TextBox day = addTextBox(date.Day.ToString());
+            TextBox day = AddTextBox(date.Day.ToString());
             grid.Children.Add(day);
             Grid.SetColumn(day, 2);
 
-            TextBox hour = addTextBox(date.Hour.ToString());
+            TextBox hour = AddTextBox(date.Hour.ToString());
             grid.Children.Add(hour);
             Grid.SetColumn(hour, 4);
 
-            TextBox minute = addTextBox(date.Minute.ToString());
+            TextBox minute = AddTextBox(date.Minute.ToString());
             grid.Children.Add(minute);
             Grid.SetColumn(minute, 5);
 
             return grid;
-        }
-
-        private static TextBox addTextBox(string content)
-        {
-            TextBox textBox = new();
-
-            textBox.Foreground = new SolidColorBrush(Colors.White);
-            textBox.Background = new SolidColorBrush(
-                System.Windows.Media.Color.FromRgb(35, 50, 68)
-            );
-            textBox.Text = content;
-            textBox.BorderThickness = new Thickness(0);
-            textBox.Margin = new Thickness(5, 0, 5, 0);
-            //This also passes the TextBox with the event handler
-            textBox.GotFocus += (sender, e) => textBoxGotFocus(sender, e, textBox);
-
-            return textBox;
         }
 
         private static void textBoxGotFocus(Object sender, RoutedEventArgs e, TextBox textBox)

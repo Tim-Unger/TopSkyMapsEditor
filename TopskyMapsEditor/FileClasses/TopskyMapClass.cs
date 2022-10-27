@@ -120,7 +120,7 @@ namespace TopskyMapsEditor
     {
         public FontSize? FontSize { get; set; }
         public FontStyle? FontStyle { get; set; }
-        public Alignment? FontAlignment { get; set; }
+        public Alignment? TextAlignment { get; set; }
     }
     public enum FontSizeType
     {

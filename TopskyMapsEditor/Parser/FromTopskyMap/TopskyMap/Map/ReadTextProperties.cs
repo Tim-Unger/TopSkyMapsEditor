@@ -51,7 +51,7 @@ namespace TopskyMapsEditor.Parser.TopskyMap
             MatchCollection fontAlignMatches = fontAlignRegex.Matches(content);
             if(fontAlignMatches.Count == 1)
             {
-                textProperties.FontAlignment = GetFontAlignment(fontAlignMatches[0]);
+                textProperties.TextAlignment = GetFontAlignment(fontAlignMatches[0]);
             }
 
             return textProperties;

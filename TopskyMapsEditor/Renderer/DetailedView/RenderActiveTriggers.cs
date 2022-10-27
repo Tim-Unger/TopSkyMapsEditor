@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using TopskyMapsEditor;
+using static Functions.AddFunctions;
 
 namespace Renderer
 {
@@ -14,7 +15,8 @@ namespace Renderer
     {
         public static void RenderTriggers(string mapName)
         {
-            var map = Vars.TopskyMaps.Where(name => name.Name == mapName).FirstOrDefault();
+            #pragma warning disable CS8600, CS8602
+            TopskyMap map = Vars.TopskyMaps.Where(name => name.Name == mapName).FirstOrDefault();
 
             if(map.ActiveList.Count > 0)
             {
@@ -55,6 +57,7 @@ namespace Renderer
             grid.Children.Add(addNewButton);
             Grid.SetRow(addNewButton, 2);
 
+            Main.SingleItemView.Children.Clear();
             Main.SingleItemView.Children.Add(grid);
         }
 
@@ -90,8 +93,10 @@ namespace Renderer
                         singleActiveTriggerGrid.Children.Add(RenderActiveArea.ActiveArea(list));
                         break;
                     case ActiveType.Runway:
+                        singleActiveTriggerGrid.Children.Add(RenderActiveRunway.ActiveRunway(list));
                         break;
                     case ActiveType.Id:
+                        //TODO
                         break;
                 }
 
@@ -102,15 +107,6 @@ namespace Renderer
             scrollViewer.Content = stackPanel;
             Grid.SetRow(scrollViewer, 1);
             Main.SingleItemView.Children.Add(grid);
-        }
-
-        private static RowDefinition AddRow (int height)
-        {
-            RowDefinition row = new();
-
-            row.Height = new GridLength(height, GridUnitType.Star);
-
-            return row;
         }
     }
 }

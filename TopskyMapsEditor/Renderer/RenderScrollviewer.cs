@@ -67,6 +67,7 @@ namespace TopskyMapsEditor.Renderer
 
             Grid grid = Main.ButtonGrid;
             
+            //TODO exception if a new map is selected
             grid.Children.Add(searchBox);
         }
 

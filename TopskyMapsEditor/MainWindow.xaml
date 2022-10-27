@@ -53,9 +53,10 @@
                 x:Name="Close"
                 Grid.Column="1"
                 Background="#233244"
+                BorderThickness="0"
                 Click="Close_Click"
                 Content="X"
-                Foreground="White" BorderThickness="0"/>
+                Foreground="White" />
         </Grid>
 
 
@@ -375,7 +376,7 @@
                                         <ColumnDefinition Width="1*" />
                                         <ColumnDefinition Width="5*" />
                                     </Grid.ColumnDefinitions>
- 
+
                                     <TextBlock
                                         VerticalAlignment="Center"
                                         FontWeight="Bold"
@@ -553,7 +554,7 @@
                                         VerticalAlignment="Center"
                                         Background="#233244"
                                         BorderThickness="0"
-                                        Click="ActiveButton_Click"
+                                        Click="FontOptionsButton_Click"
                                         Content="View"
                                         FontWeight="Bold"
                                         Foreground="White" />

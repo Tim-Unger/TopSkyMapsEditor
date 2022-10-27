@@ -63,6 +63,7 @@ namespace TopskyMapsEditor.Renderer
                         break;
                 }
             }
+
         }
 
         private static void ResetButtons()
@@ -81,6 +82,7 @@ namespace TopskyMapsEditor.Renderer
 
             Main.DashedDottedDottedStyleButton.Foreground = White;
             Main.DashedDottedDottedStyleButton.Background = LightBlue;
+
         }
     }
 }

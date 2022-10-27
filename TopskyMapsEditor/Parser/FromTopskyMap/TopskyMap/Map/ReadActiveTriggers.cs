@@ -45,11 +45,11 @@ namespace Parser
             //either always active or active by date
             if (isInt)
             {
-                ActiveByInt(value, match);
+                active = ActiveByInt(value, match);
             }
             else
             {
-                ActiveElse(match);
+                active = ActiveElse(match);
             }
 
             return active;
@@ -180,13 +180,13 @@ namespace Parser
             switch (activeType)
             {
                 case "NOTAM":
-                    ActiveByNotam(fullMatch);
+                    active = ActiveByNotam(fullMatch);
                     break;
                 case "AREA":
-                    ActiveByArea(fullMatch);
+                    active = ActiveByArea(fullMatch);
                     break;
                 case "RWY":
-                    ActiveByRunway(fullMatch);
+                    active = ActiveByRunway(fullMatch);
                     break;
                 case "ID":
                     //TODO Read Station IDs

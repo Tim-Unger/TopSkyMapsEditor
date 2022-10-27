@@ -224,7 +224,7 @@ namespace TopskyMapsEditor
 
         private void Window_ContentRendered(object sender, EventArgs e)
         {
-            Main = this;
+            Main = this as MainWindow;
             PlaceholderMainGrid.Visibility = Visibility.Visible;
             MainGrid.Visibility = Visibility.Hidden;
         }
@@ -251,5 +251,10 @@ namespace TopskyMapsEditor
         private void SymbolsButton_Click(object sender, RoutedEventArgs e) { }
 
         private void TextsButton_Click(object sender, RoutedEventArgs e) { }
+
+        private void FontOptionsButton_Click(object sender, RoutedEventArgs e)
+        {
+            RenderFontOptions.RenderFont(NameTextBox.Text);
+        }
     }
 }
