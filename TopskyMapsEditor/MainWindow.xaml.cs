@@ -119,6 +119,7 @@ namespace TopskyMapsEditor
                     MainGrid.Visibility = Visibility.Visible;
 
                     RenderScrollviewer.RenderListView(TopskyMaps);
+                    RenderScrollviewer.RenderFolderView(TopskyMaps);
                 }
                 //MapPlaceholder.Visibility = Visibility.Hidden;
             }
@@ -167,6 +168,7 @@ namespace TopskyMapsEditor
 
                     //TODO
                     RenderScrollviewer.RenderListView(TopskyMaps);
+                    RenderScrollviewer.RenderFolderView(TopskyMaps);
                 }
             }
         }
@@ -191,9 +193,17 @@ namespace TopskyMapsEditor
             //BrowseSctButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(23, 23, 23));
         }
 
-        private void FolderViewButton_Click(object sender, RoutedEventArgs e) { }
+        private void FolderViewButton_Click(object sender, RoutedEventArgs e) 
+        {
+            ListViewScrollViewer.Visibility = Visibility.Hidden;
+            FolderViewScrollViewer.Visibility = Visibility.Visible;
+        }
 
-        private void ListViewButton_Click(object sender, RoutedEventArgs e) { }
+        private void ListViewButton_Click(object sender, RoutedEventArgs e) 
+        {
+            ListViewScrollViewer.Visibility = Visibility.Visible;
+            FolderViewScrollViewer.Visibility = Visibility.Hidden;
+        }
 
         private void RawViewButton_Click(object sender, RoutedEventArgs e) { }
 
@@ -229,17 +239,17 @@ namespace TopskyMapsEditor
             MainGrid.Visibility = Visibility.Hidden;
         }
 
-        private void ListViewSearch_GotFocus(object sender, RoutedEventArgs e)
-        {
-            //TODO Key input event handler
-            //string input += e.KeyChar.ToString();
-        }
+        //private void ListViewSearch_GotFocus(object sender, RoutedEventArgs e)
+        //{
+        //    //TODO Key input event handler
+        //    //string input += e.KeyChar.ToString();
+        //}
 
-        private void ListViewSearch_LostFocus(object sender, RoutedEventArgs e) { }
+        //private void ListViewSearch_LostFocus(object sender, RoutedEventArgs e) { }
 
         private void AddTopskyMapButton_Click(object sender, RoutedEventArgs e) { }
 
-        private void ListViewSearch_TextChanged(object sender, TextChangedEventArgs e) { }
+        //private void ListViewSearch_TextChanged(object sender, TextChangedEventArgs e) { }
 
         private void ActiveButton_Click(object sender, RoutedEventArgs e) 
         {
@@ -255,6 +265,29 @@ namespace TopskyMapsEditor
         private void FontOptionsButton_Click(object sender, RoutedEventArgs e)
         {
             RenderFontOptions.RenderFont(NameTextBox.Text);
+        }
+
+        private void EditColorButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(ColorBox.SelectedItem != null)
+            {
+                RenderColorOptions.RenderColor(ColorBox.SelectedItem);
+
+            }
+            else
+            {
+                MessageBox.Show("No Color selected");
+            }
+        }
+
+        private void FilterFolderButton_Click(object sender, RoutedEventArgs e)
+        {
+            RenderMapOverview.FilterFolders();
+        }
+
+        private void AddFolderButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -8,7 +8,7 @@ using TopskyMapsEditor;
 
 namespace Parser
 {
-    public class ReadFolder
+    public class ReadFolder : MainWindow
     {
         public static string GetFolder(string content)
         {
@@ -57,5 +57,7 @@ namespace Parser
                 return true;
             }
         }
+
+        
     }
 }

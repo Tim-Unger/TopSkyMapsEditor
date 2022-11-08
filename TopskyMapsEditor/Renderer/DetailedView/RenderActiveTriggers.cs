@@ -103,6 +103,8 @@ namespace Renderer
                 stackPanel.Children.Add(singleActiveTriggerGrid);
             }
 
+            //TODO Test
+            //Main.SingleItemView.Children.Clear();
             grid.Children.Add(scrollViewer);
             scrollViewer.Content = stackPanel;
             Grid.SetRow(scrollViewer, 1);

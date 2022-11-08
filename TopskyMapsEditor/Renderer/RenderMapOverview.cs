@@ -16,7 +16,7 @@ namespace TopskyMapsEditor.Renderer
         public static void RenderMap(TopskyMap map)
         {
             Main.NameTextBox.Text = map.Name;
-            Main.FolderTextBox.Text = map.Folder;
+            AddFoldersToDropdown(map);
 
             if(map.Layer != null)
             {
@@ -64,6 +64,45 @@ namespace TopskyMapsEditor.Renderer
                 }
             }
 
+        }
+
+        public static void AddFoldersToDropdown(TopskyMap selectedMap)
+        {
+            List<string> folderList = new();
+
+            //TODO rewrite with LINQ?
+            foreach (var map in Vars.TopskyMaps)
+            {
+                if (!folderList.Contains(map.Folder))
+                {
+                    folderList.Add(map.Folder);
+                }
+            }
+
+            //TODO Clears to remove duplicate items for now
+            Main.FolderDropdown.Items.Clear();
+            foreach (var folder in folderList)
+            {
+                Main.FolderDropdown.Items.Add(folder);
+
+                //TODO doesn't work for some reason
+                Main.FolderDropdown.Text = selectedMap.Folder ?? "None";
+            }
+        }
+
+
+        public static void FilterFolders()
+        {
+            string mapName = Main.NameTextBox.Text;
+            if (mapName != null)
+            {
+                TopskyMap? map = Vars.TopskyMaps.Where(map => map.Name == mapName).FirstOrDefault();
+
+                if(map != null)
+                {
+                    RenderScrollviewer.FilterListByFolder(Main.FolderDropdown.Text);
+                }
+            }
         }
 
         private static void ResetButtons()

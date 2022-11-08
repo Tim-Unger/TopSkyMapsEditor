@@ -285,6 +285,13 @@
                                         VerticalScrollBarVisibility="Auto">
                                         <StackPanel x:Name="ListStackPanel" />
                                     </ScrollViewer>
+
+                                    <ScrollViewer
+                                        x:Name="FolderViewScrollViewer"
+                                        Grid.Row="2"
+                                        VerticalScrollBarVisibility="Auto">
+                                        <StackPanel x:Name="FolderStackPanel" />
+                                    </ScrollViewer>
                                 </Grid>
                             </Grid>
 
@@ -374,7 +381,9 @@
                                 <Grid Grid.Row="2">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1*" />
-                                        <ColumnDefinition Width="5*" />
+                                        <ColumnDefinition Width="3*" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock
@@ -382,12 +391,38 @@
                                         FontWeight="Bold"
                                         Foreground="White"
                                         Text="Folder:*" />
-                                    <TextBox
-                                        x:Name="FolderTextBox"
+                                    <ComboBox
+                                        x:Name="FolderDropdown"
                                         Grid.Column="1"
                                         VerticalAlignment="Center"
                                         Background="#233244"
                                         BorderThickness="0"
+                                        Foreground="Black" />
+
+                                    <Button
+                                        x:Name="FilterFolderButton"
+                                        Grid.Column="2"
+                                        Padding="5,5,5,5"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Background="#233244"
+                                        BorderThickness="0"
+                                        Click="FilterFolderButton_Click"
+                                        Content="&lt;Filter"
+                                        FontWeight="Bold"
+                                        Foreground="White" />
+
+                                    <Button
+                                        x:Name="AddFolderButton"
+                                        Grid.Column="3"
+                                        Padding="5,5,5,5"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Background="#233244"
+                                        BorderThickness="0"
+                                        Click="AddFolderButton_Click"
+                                        Content="Add"
+                                        FontWeight="Bold"
                                         Foreground="White" />
                                 </Grid>
 
@@ -515,7 +550,7 @@
                                         VerticalAlignment="Center"
                                         Background="#233244"
                                         BorderThickness="0"
-                                        Click="ActiveButton_Click"
+                                        Click="EditColorButton_Click"
                                         Content="Show"
                                         FontWeight="Bold"
                                         Foreground="White" />
