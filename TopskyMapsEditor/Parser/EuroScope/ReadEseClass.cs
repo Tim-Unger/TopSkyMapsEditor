@@ -53,11 +53,10 @@ namespace Parser
                     }
 
                     positions.Add(position);
+                    continue;
                 }
-                else
-                {
-                    break;
-                }
+
+                break;
             }
             return positions;
         }
@@ -71,10 +70,8 @@ namespace Parser
             {
                 return files[0];
             }
-            else
-            {
-                return null;
-            }
+           
+            return null;
         }
     }
 }

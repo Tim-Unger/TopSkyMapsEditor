@@ -90,11 +90,10 @@ namespace Parser
                     }
 
                     vorList.Add(vor);
+                    continue;
                 }
-                else
-                {
-                    break;
-                }
+
+                break;
             }
 
             return vorList;
@@ -124,11 +123,10 @@ namespace Parser
                     }
 
                     ndbList.Add(ndb);
+                    continue;
                 }
-                else
-                {
-                    break;
-                }
+
+                break;
             }
 
             return ndbList;
@@ -164,11 +162,10 @@ namespace Parser
                     }
 
                     runwayList.Add(runway);
+                    continue;
                 }
-                else
-                {
-                    break;
-                }
+
+                break;
             }
 
             return runwayList;
@@ -209,11 +206,9 @@ namespace Parser
                     airport.runways = RunwayList;
 
                     airportList.Add(airport);
+                    continue;
                 }
-                else
-                {
-                    break;
-                }
+                break;
             }
 
             return airportList;
@@ -242,11 +237,10 @@ namespace Parser
                     }
 
                     fixList.Add(fix);
+                    continue;
                 }
-                else
-                {
-                    break;
-                }
+
+                break;
             }
 
             return fixList;

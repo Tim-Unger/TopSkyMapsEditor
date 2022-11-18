@@ -113,10 +113,7 @@ namespace TopskyMapsEditor.Parser.TopskyMap
 
                 return returnText;
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
     }
 }

@@ -42,15 +42,7 @@ namespace Parser
                         break;
                 }
 
-                int? width;
-                if (groups[2].Success == true)
-                {
-                    width = int.Parse(groups[2].Value);
-                }
-                else
-                {
-                    width = null;
-                }
+                int? width = groups[2].Success ? int.Parse(groups[2].Value) : null;
 
                 style.Width = width;
 

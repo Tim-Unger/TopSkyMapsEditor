@@ -21,11 +21,11 @@ namespace Renderer
             if(map.ActiveList.Count > 0)
             {
                 RenderTriggers(map.ActiveList);
+                return;
             }
-            else
-            {
-                NoTriggers();
-            }
+            
+            NoTriggers();
+            
         }
 
         private static void NoTriggers()

@@ -28,6 +28,12 @@ namespace TopskyMapsEditor
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    public enum SelectedTab
+    {
+        List,
+        Folders
+    }
+
     public class Vars
     {
         public static bool IsTopskyFolderSelected { get; set; }
@@ -38,12 +44,18 @@ namespace TopskyMapsEditor
         public static GeneralSettings? GeneralSettings { get; set; }
 
         public static List<string>? TopskyAreas { get; set; }
+
+        public static SelectedTab SelectedTab { get; set; }
     }
 
     public partial class MainWindow : Window
     {
         //TODO?
         public static MainWindow Main;
+
+        public static SolidColorBrush white = new(Colors.White);
+        public static SolidColorBrush darkBlue = new(System.Windows.Media.Color.FromRgb(28, 40, 54));
+        public static SolidColorBrush lightBlue = new(System.Windows.Media.Color.FromRgb(35, 50, 68));
 
         public MainWindow()
         {
@@ -89,10 +101,8 @@ namespace TopskyMapsEditor
                     {
                         goto selectPath;
                     }
-                    else
-                    {
-                        goto readFile;
-                    }
+                    
+                    goto readFile;
                 }
 
                 readFile:
@@ -195,14 +205,26 @@ namespace TopskyMapsEditor
 
         private void FolderViewButton_Click(object sender, RoutedEventArgs e) 
         {
+            Vars.SelectedTab = SelectedTab.Folders;
             ListViewScrollViewer.Visibility = Visibility.Hidden;
-            FolderViewScrollViewer.Visibility = Visibility.Visible;
+            ListViewButton.Background = lightBlue;
+            ListViewButton.Foreground = white;
+
+            FolderTreeGrid.Visibility = Visibility.Visible;
+            FolderViewButton.Background = white;
+            FolderViewButton.Foreground = lightBlue;
         }
 
         private void ListViewButton_Click(object sender, RoutedEventArgs e) 
         {
+            Vars.SelectedTab = SelectedTab.List;
             ListViewScrollViewer.Visibility = Visibility.Visible;
-            FolderViewScrollViewer.Visibility = Visibility.Hidden;
+            ListViewButton.Background = white;
+            ListViewButton.Foreground = lightBlue;
+
+            FolderTreeGrid.Visibility = Visibility.Hidden;
+            FolderViewButton.Background = lightBlue;
+            FolderViewButton.Foreground = white;
         }
 
         private void RawViewButton_Click(object sender, RoutedEventArgs e) { }
@@ -264,7 +286,14 @@ namespace TopskyMapsEditor
 
         private void FontOptionsButton_Click(object sender, RoutedEventArgs e)
         {
-            RenderFontOptions.RenderFont(NameTextBox.Text);
+            string selectedMap = NameTextBox.Text;
+
+            TopskyMap map = TopskyMaps.Where(map => map.Name == selectedMap).First();
+
+            if(map.TextProperties != null)
+            {
+                RenderFontOptions.RenderFont(NameTextBox.Text);
+            }
         }
 
         private void EditColorButton_Click(object sender, RoutedEventArgs e)
@@ -272,12 +301,11 @@ namespace TopskyMapsEditor
             if(ColorBox.SelectedItem != null)
             {
                 RenderColorOptions.RenderColor(ColorBox.SelectedItem);
+                return;
+            }
+           
+            MessageBox.Show("No Color selected");
 
-            }
-            else
-            {
-                MessageBox.Show("No Color selected");
-            }
         }
 
         private void FilterFolderButton_Click(object sender, RoutedEventArgs e)

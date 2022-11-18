@@ -5,6 +5,7 @@ using System.Runtime;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using TopskyMapsEditor;
 
 namespace Parser
@@ -45,14 +46,10 @@ namespace Parser
             //either always active or active by date
             if (isInt)
             {
-                active = ActiveByInt(value, match);
+                return active = ActiveByInt(value, match);
             }
-            else
-            {
-                active = ActiveElse(match);
-            }
-
-            return active;
+            
+            return active = ActiveElse(match);
         }
 
         private static Active ActiveByInt(int value, Match match)
@@ -63,13 +60,12 @@ namespace Parser
             {
                 active.ActiveType = ActiveType.Always;
                 active.IsAlwaysActive = true;
-            }
-            //active by date
-            else
-            {
-                active = ActiveByDate(match);
+
+                return active;
             }
 
+            //active by date
+            active = ActiveByDate(match);
             return active;
         }
 
@@ -104,18 +100,8 @@ namespace Parser
                 active.ActiveType = ActiveType.Time;
                 active.IsActiveByTime = true;
 
-                //Year is set
-                int startYear = 0;
-                if (dateGroups[2].Success == true)
-                {
-                    startYear = int.Parse(dateGroups[2].Value);
-                }
-                //Year not set
+                int startYear = dateGroups[2].Success ? int.Parse(dateGroups[2].Value) : DateTime.UtcNow.Year;
 
-                else
-                {
-                    startYear = DateTime.UtcNow.Year;
-                }
                 int startMonth = int.Parse(dateGroups[3].Value);
                 int startDay = int.Parse(dateGroups[4].Value);
 
@@ -131,15 +117,8 @@ namespace Parser
                     00
                 );
 
-                int endYear = 0;
-                if (dateGroups[6].Success == true)
-                {
-                    endYear = int.Parse(dateGroups[6].Value);
-                }
-                else
-                {
-                    endYear = DateTime.UtcNow.Year;
-                }
+                int endYear = dateGroups[6].Success ? int.Parse(dateGroups[6].Value) : DateTime.UtcNow.Year;
+                
                 int endMonth = int.Parse(dateGroups[7].Value);
                 int endDay = int.Parse(dateGroups[8].Value);
 
@@ -153,20 +132,21 @@ namespace Parser
                 if (weekdaysInt == 0)
                 {
                     active.WeekDays = weekdays.ToArray();
+
+                    return active;
+
                 }
-                else
+                
+                var weekdaysSingle = weekdaysInt.ToString().ToCharArray();
+
+                List<string> weekdaysConverted = new List<string>();
+                foreach (var weekday in weekdaysSingle)
                 {
-                    var weekdaysSingle = weekdaysInt.ToString().ToCharArray();
-
-                    List<string> weekdaysConverted = new List<string>();
-                    foreach (var weekday in weekdaysSingle)
-                    {
-                        int weekdayCoverted = (weekday - '0') - 1;
-                        weekdaysConverted.Add(weekdays[weekdayCoverted]);
-                    }
-
-                    active.WeekDays = weekdaysConverted.ToArray();
+                    int weekdayCoverted = (weekday - '0') - 1;
+                    weekdaysConverted.Add(weekdays[weekdayCoverted]);
                 }
+
+                active.WeekDays = weekdaysConverted.ToArray();
             }
             return active;
         }

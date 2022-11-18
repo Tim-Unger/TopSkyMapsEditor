@@ -106,14 +106,10 @@ namespace TopskyMapsEditor.Parser.TopskyMap
                     returnList.Add(symbol);
                 }
 
-
                 return returnList;
+            }
 
-            }
-            else
-            {
-                return null;
-            }
+            return null;
 
         }
     }

@@ -36,22 +36,24 @@ namespace Parser
                     {
                         line.StartPoint = lineGroups[2].Value;
                         line.EndPoint = lineGroups[3].Value;
+
+                        continue;
                     }
                     //Runways defined
-                    else if (lineGroups[13].Success == true)
+                    if (lineGroups[13].Success == true)
                     {
                         line.StartPoint = lineGroups[13].Value;
                         line.EndPoint = lineGroups[15].Value;
+
+                        continue;
                     }
                     //Coordinates defined
-                    else
-                    {
-                        line.StartLatitude = lineGroups[5].Value;
-                        line.StartLongitude = lineGroups[7].Value;
+                    line.StartLatitude = lineGroups[5].Value;
+                    line.StartLongitude = lineGroups[7].Value;
 
-                        line.EndLatitude = lineGroups[9].Value;
-                        line.EndLongitude = lineGroups[11].Value;
-                    }
+                    line.EndLatitude = lineGroups[9].Value;
+                    line.EndLongitude = lineGroups[11].Value;
+                    
                     lines.Add(line);
                 }
 

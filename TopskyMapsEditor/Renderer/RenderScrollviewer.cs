@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing.Printing;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Printing;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,9 @@ using TopskyMapsEditor;
 using Button = System.Windows.Controls.Button;
 using StackPanel = System.Windows.Controls.StackPanel;
 using TextBox = System.Windows.Controls.TextBox;
+using TreeView = System.Windows.Controls.TreeView;
+using static TopskyMapsEditor.Vars;
+using System.Windows.Shell;
 
 namespace TopskyMapsEditor.Renderer
 {
@@ -34,13 +38,21 @@ namespace TopskyMapsEditor.Renderer
 
         //private static ScrollViewer scrollViewer = Main.ListViewScrollViewer;
         private static StackPanel listStackPanel = Main.ListStackPanel;
-        private static StackPanel folderStackPanel = Main.FolderStackPanel;
+
+        //private static StackPanel folderStackPanel = Main.FolderStackPanel;
         //private static StackPanel saveStackPanel = Main.ListStackPanel;
         private static List<Button> buttonList = new();
+        public static TreeView Tree { get; set; } =
+            new TreeView()
+            {
+                Background = new SolidColorBrush(Colors.Transparent),
+                BorderThickness = new Thickness(0),
+                Foreground = white
+            };
 
         public static void RenderListView(List<TopskyMap> topskyMaps)
         {
-            Thickness margin = new (5, 0, 5, 0);
+            Thickness margin = new(5, 0, 5, 0);
             Thickness padding = new(0, 5, 0, 5);
             System.Windows.Media.Color darkBlue = System.Windows.Media.Color.FromRgb(28, 40, 54);
             System.Windows.Media.Color lightBlue = System.Windows.Media.Color.FromRgb(35, 50, 68);
@@ -75,7 +87,7 @@ namespace TopskyMapsEditor.Renderer
             grid.Children.Add(searchBox);
         }
 
-        public static void RenderFolderView(List <TopskyMap> topskyMaps)
+        public static void RenderFolderView(List<TopskyMap> topskyMaps)
         {
             Thickness margin = new(5, 0, 5, 0);
             Thickness padding = new(0, 5, 0, 5);
@@ -93,50 +105,64 @@ namespace TopskyMapsEditor.Renderer
                 }
             }
 
-            foreach(var folder in folders)
+            foreach (var folder in folders)
             {
-                //TODO expand/collapse button
-                TextBlock folderTitleText = new()
-                {
-                    Text = folder,
-                    FontWeight = FontWeights.Bold,
-                    Foreground = new SolidColorBrush(Colors.White)
-                };
-
-                StackPanel subFolderStackPanel = new()
-                {
-                    Margin = new Thickness(30,0,0,0)
-                };
-
-                subFolderStackPanel.Children.Add(folderTitleText);
+                TreeView treeView = Tree;
+                //TreeView treeView = Main.FolderTree;
+                TreeViewItem treeViewItem =
+                    new()
+                    {
+                        Foreground = new SolidColorBrush(Colors.White),
+                        FontWeight = FontWeights.Bold,
+                        Header = folder,
+                        IsExpanded = true,
+                        Padding = padding,
+                        Margin = margin,
+                    };
 
                 List<TopskyMap> folderMaps = topskyMaps.Where(map => map.Folder == folder).ToList();
 
-                foreach(var folderItem in folderMaps)
+                foreach (var map in folderMaps)
                 {
-                    TextBlock textBlock = new();
+                    TreeViewItem mapItem = new();
 
-                    Button button =
-                        new()
-                        {
-                            Foreground = new SolidColorBrush(Colors.White),
-                            Content = folderItem.Name.TrimEnd('\r', '\n'),
-                            Padding = padding,
-                            Background = new SolidColorBrush(darkBlue),
-                            Margin = margin,
-                            BorderThickness = new Thickness(0),
-                            HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
-                        };
-                    button.Click += Button_Click;
-                    subFolderStackPanel.Children.Add(button);
+                    mapItem.Foreground = new SolidColorBrush(Colors.White);
+                    mapItem.Header = map.Name;
+                    mapItem.IsExpanded = true;
+                    mapItem.FontWeight = FontWeights.Regular;
+                    mapItem.Margin = margin;
+                    mapItem.Padding = padding;
 
-                    buttonList.Add(button);
+                    mapItem.Selected += MapItem_Selected;
+
+                    treeViewItem.Items.Add(mapItem);
                 }
 
-                folderStackPanel.Children.Add(subFolderStackPanel);
+                searchBox.GotFocus += SearchBox_GotFocus;
+                searchBox.TextChanged += SearchBox_TextChanged;
+
+                treeView.Items.Add(treeViewItem);
             }
 
-            Main.FolderViewScrollViewer.Visibility = Visibility.Hidden;
+            Main.FolderTreeGrid.Children.Add(Tree);
+
+            if (Vars.SelectedTab == SelectedTab.List)
+            {
+                Main.FolderTreeGrid.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private static void MapItem_Selected(object sender, RoutedEventArgs e)
+        {
+            
+#pragma warning disable CS8600, CS8602, CS8604
+
+            TreeViewItem item = sender as TreeViewItem;
+            TopskyMap topskyMap = TopskyMaps
+                .Where(map => map.Name == item.Header.ToString())
+                .FirstOrDefault();
+
+            RenderMapOverview.RenderMap(topskyMap);
         }
 
         private static void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -144,6 +170,7 @@ namespace TopskyMapsEditor.Renderer
             TextBox textBox = searchBox;
             string searchText = textBox.Text;
 
+            TreeView tempTree = null;
             List<Button> searchResults = new();
 
             //Check if search is whitespace
@@ -155,48 +182,67 @@ namespace TopskyMapsEditor.Renderer
             )
             {
                 listStackPanel.Children.RemoveRange(0, listStackPanel.Children.Count);
-                //foreach (Button button in saveStackPanel.Children.OfType<Button>())
-                //{
-                //    stackPanel.Children.Add(button);
-                //}
+
                 foreach (Button button in buttonList)
                 {
                     listStackPanel.Children.Add(button);
                 }
+
+                //tempTree = Tree;
+
+                //Main.FolderTreeGrid.Children.Clear();
+                //Main.FolderTreeGrid.Children.Add(tempTree);
+
+                //Main.FolderTreeGrid.Visibility = Visibility.Visible;
+
+                return;
             }
-            else
+
+            //tempTree = null;
+
+            ////Single Item List
+            foreach (Button children in buttonList)
             {
-                //for(int i = 0; i < saveStackPanel.Children.Count; i++)
-                //{
+                var element = children;
 
-                //}
-                foreach (
-                    Button children in buttonList /*stackPanel.Children.OfType<Button>()*/
-                )
+                string buttonContent = children.Content.ToString();
+                bool elementContainsSearch = buttonContent.Contains(
+                    searchText,
+                    StringComparison.OrdinalIgnoreCase
+                );
+                if (elementContainsSearch)
                 {
-                    var element = children;
-
-                    //stackPanel.Children.RemoveRange(8, stackPanel.Children.Count);
-                    //bool elementContainsSearch = element.Name.IndexOf(content, StringComparison.OrdinalIgnoreCase) >= 0;
-                    string buttonContent = children.Content.ToString();
-                    bool elementContainsSearch = buttonContent.Contains(
-                        searchText,
-                        StringComparison.OrdinalIgnoreCase
-                    );
-                    if (elementContainsSearch)
-                    {
-                        searchResults.Add(element);
-                    }
-                }
-
-                listStackPanel.Children.RemoveRange(0, listStackPanel.Children.Count);
-
-                foreach (var result in searchResults)
-                {
-                    listStackPanel.Children.Add(result);
+                    searchResults.Add(element);
                 }
             }
-            //throw new NotImplementedException();
+
+            listStackPanel.Children.RemoveRange(0, listStackPanel.Children.Count);
+
+            foreach (var result in searchResults)
+            {
+                listStackPanel.Children.Add(result);
+            }
+
+            ////Folder List
+            //tempTree = Tree;
+
+            //foreach(TreeViewItem item in tempTree.Items)
+            //{
+            //    foreach(TreeViewItem children in item.Items)
+            //    {
+            //        if(children.Header.ToString().Contains(searchText, StringComparison.CurrentCultureIgnoreCase))
+            //        {
+            //            //TODO
+            //        }
+            //    }
+            //    if(item.Header.ToString().Contains(searchText, StringComparison.CurrentCultureIgnoreCase))
+            //    {
+            //        item.IsExpanded = false;
+            //    }
+            //}
+
+            //Main.FolderTreeGrid.Children.Clear();
+            //Main.FolderTreeGrid.Children.Add(tempTree);
         }
 
         private static void SearchBox_GotFocus(object sender, RoutedEventArgs e)
@@ -216,7 +262,7 @@ namespace TopskyMapsEditor.Renderer
             //int index = stackPanel.Children.IndexOf(sender as UIElement);
             var buttonText = (sender as Button).Content;
 
-            foreach (var map in Vars.TopskyMaps)
+            foreach (var map in TopskyMaps)
             {
                 if (map.Name == buttonText)
                 {
@@ -232,9 +278,10 @@ namespace TopskyMapsEditor.Renderer
         {
             TextBox textBox = searchBox;
 
+            //Filter for Single Item View
             List<string> filteredResultsList = new();
 
-            foreach (var filterMap in Vars.TopskyMaps.Where(folder => folder.Folder == selectedMap))
+            foreach (var filterMap in TopskyMaps.Where(folder => folder.Folder == selectedMap))
             {
                 if (!filteredResultsList.Contains(filterMap.Name))
                 {
@@ -245,8 +292,78 @@ namespace TopskyMapsEditor.Renderer
             listStackPanel.Children.RemoveRange(0, listStackPanel.Children.Count);
             foreach (var folderMap in filteredResultsList)
             {
-                listStackPanel.Children.Add(buttonList.Where(button => button.Content.ToString() == folderMap).First());
+                listStackPanel.Children.Add(
+                    buttonList.Where(button => button.Content.ToString() == folderMap).First()
+                );
             }
+
+            //Filter for Folder View
+            TreeView treeView = Main.FolderTreeGrid.Children[0] as TreeView;
+
+            TreeViewItem filteredFolderItem = new();
+
+            foreach (TreeViewItem item in treeView.Items)
+            {
+                if (item.Header.ToString() == selectedMap.Trim())
+                {
+                    item.IsExpanded = true;
+                    continue;
+                }
+
+                item.IsExpanded = false;
+            }
+
+
+            AddRemoveFilterButton();
+        }
+
+        private static void SearchFolders(string searchText)
+        {
+            //List<string> searchResults = new();
+
+            //searchResults =
+        }
+
+        private static void AddRemoveFilterButton()
+        {
+            Button button =
+                new()
+                {
+                    Padding = new Thickness(10, 5, 10, 5),
+                    Background = new SolidColorBrush(
+                        System.Windows.Media.Color.FromRgb(35, 50, 68)
+                    ),
+                    BorderThickness = new Thickness(0),
+                    Content = "Remove Filters",
+                    FontWeight = FontWeights.Bold,
+                    Foreground = new SolidColorBrush(Colors.White)
+                };
+
+            button.Click += RemoveFiltersButton_Click;
+
+            if (Main.ViewButtonsStackPanel.Children.Count > 2)
+            {
+                Main.ViewButtonsStackPanel.Children.RemoveAt(2);
+            }
+
+            Main.ViewButtonsStackPanel.Children.Add(button);
+        }
+
+        private static void RemoveFiltersButton_Click(object sender, RoutedEventArgs e)
+        {
+            listStackPanel.Children.RemoveRange(0, listStackPanel.Children.Count);
+
+            foreach (Button button in buttonList)
+            {
+                listStackPanel.Children.Add(button);
+            }
+
+            TreeView tree = Main.FolderTreeGrid.Children[0] as TreeView;
+            foreach (TreeViewItem item in tree.Items)
+            {
+                item.IsExpanded = true;
+            }
+            Main.ViewButtonsStackPanel.Children.Remove(sender as Button);
         }
     }
 }

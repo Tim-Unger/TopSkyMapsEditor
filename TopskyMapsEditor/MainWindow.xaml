@@ -250,6 +250,7 @@
                                         Foreground="White" />
 
                                     <StackPanel
+                                        x:Name="ViewButtonsStackPanel"
                                         Grid.Row="2"
                                         Margin="0,5,0,0"
                                         Orientation="Horizontal">
@@ -286,12 +287,13 @@
                                         <StackPanel x:Name="ListStackPanel" />
                                     </ScrollViewer>
 
-                                    <ScrollViewer
-                                        x:Name="FolderViewScrollViewer"
-                                        Grid.Row="2"
-                                        VerticalScrollBarVisibility="Auto">
-                                        <StackPanel x:Name="FolderStackPanel" />
-                                    </ScrollViewer>
+                                    <Grid x:Name="FolderTreeGrid" />
+
+                                    <!--<TreeView
+                                        x:Name="FolderTree"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Foreground="White" />-->
                                 </Grid>
                             </Grid>
 
@@ -538,7 +540,6 @@
                                         x:Name="ColorBox"
                                         Grid.Column="1"
                                         VerticalAlignment="Center"
-                                        Background="#233244"
                                         BorderThickness="0"
                                         Foreground="Black" />
 

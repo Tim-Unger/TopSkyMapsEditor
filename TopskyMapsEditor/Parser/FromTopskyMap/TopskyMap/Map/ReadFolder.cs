@@ -24,40 +24,24 @@ namespace Parser
                 {
                     return folder;
                 }
-                else
-                {
-                    return "Invalid";
-                }
-            }
-            else
-            {
+                
                 return "Invalid";
+                
             }
+            
+            return "Invalid";
+            
         }
 
         private static bool IsNameValid(string name)
         {
-            //Name starts with whitespace
-            if (name.ToCharArray()[0] == ' ')
+            //Name starts with whitespace, is AUTO or LMAPS or contains Backslash
+            if (name.ToCharArray()[0] == ' ' || name.ToUpper() == "AUTO" || name.ToUpper() == "LMAPS" || name.Contains('\\'))
             {
                 return false;
             }
-            //Name is AUTO or LMAPS
-            else if (name.ToUpper() == "AUTO" || name.ToUpper() == "LMAPS")
-            {
-                return false;
-            }
-            //Name contains backslash
-            else if (name.Contains('\\'))
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+           
+            return true;
         }
-
-        
     }
 }

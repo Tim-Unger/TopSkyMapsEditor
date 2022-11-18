@@ -13,7 +13,7 @@ namespace Parser
 {
     public class ReadColors
     {
-        public static List<Color> GetColors(string content)
+        public static List<Color>? GetColors(string content)
         {
             List<Color> colors = new List<Color>();
 
@@ -49,10 +49,9 @@ namespace Parser
                 return colors;
 
             }
-            else
-            {
-                return null;
-            }
+            
+            return null;
+            
         }
 
         public static void AddColorsToDropdown()

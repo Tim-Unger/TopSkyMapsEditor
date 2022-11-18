@@ -59,6 +59,8 @@ namespace Renderer
             grid.Children.Add(fontWeightGrid);
             Grid.SetRow(fontWeightGrid, 2);
 
+            
+
             Grid fontStyleGrid = FontStyle(textProperties.FontStyle);
             grid.Children.Add(fontStyleGrid);
             Grid.SetRow(fontStyleGrid, 3);
@@ -71,7 +73,7 @@ namespace Renderer
             Main.SingleItemView.Children.Add(grid);
         }
 
-        private static new Grid FontSize(FontSize fontSize)
+        private static new Grid FontSize(FontSize? fontSize)
         {
             Grid grid = new();
 
@@ -190,7 +192,7 @@ namespace Renderer
             return grid;
         }
 
-        private static new Grid FontWeight(int fontWeigth)
+        private static new Grid FontWeight(int? fontWeigth)
         {
             Grid grid = new();
 
@@ -211,7 +213,7 @@ namespace Renderer
             return grid;
         }
 
-        private static new Grid FontStyle(TopskyMapsEditor.FontStyle fontStyle)
+        private static new Grid FontStyle(TopskyMapsEditor.FontStyle? fontStyle)
         {
             Grid grid = new();
 
@@ -301,7 +303,7 @@ namespace Renderer
             return grid;
         }
 
-        private static new Grid FontAlignment(Alignment? fontAlignment)
+        private static Grid FontAlignment(Alignment? fontAlignment)
         {
             Grid grid = new();
 
